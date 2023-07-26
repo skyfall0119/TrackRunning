@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+
+    <group
+        android:checkableBehavior="single">
+
+
+
+        <item
+            android:id="@+id/nav_running"
+            android:icon="@drawable/baseline_directions_run_24"
+            android:title="@string/menu_running_eng"
+            />
+
+
+
+        <item
+            android:id="@+id/nav_preset"
+            android:icon="@drawable/baseline_preset_24"
+            android:title="@string/menu_preset_eng"
+            />
+
+        <item
+            android:id="@+id/nav_Activity"
+            android:icon="@drawable/baseline_activity_24"
+            android:title="@string/menu_activity_eng"
+            />
+
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_setting"
+                android:icon="@drawable/baseline_settings_24"
+                android:title="@string/menu_setting_eng"
+                />
+        </menu>
+    </item>
+
+</menu>

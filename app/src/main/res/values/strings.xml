@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">TrackRunning</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+
+    <string name="menu_activity_eng">Activity</string>
+    <string name="menu_running_eng">Running</string>
+    <string name="menu_setting_eng">Setting</string>
+    <string name="menu_preset_eng">Run Preset</string>
+
+
+    <string name="menu_activity_kor">활동</string>
+    <string name="menu_running_kor">러닝</string>
+    <string name="menu_setting_kor">세팅</string>
+    <string name="menu_preset_kor">런닝 프리셋</string>
+
+
+</resources>
