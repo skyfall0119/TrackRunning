@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (savedInstanceState == null){
             replaceFragment(RunningFragment())
             navigationView.setCheckedItem(R.id.nav_running)
-            supportActionBar!!.setTitle(R.string.menu_running_eng)
+            supportActionBar!!.setTitle(R.string.menu_running)
         }
 
 
@@ -48,19 +48,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when(item.itemId){
             R.id.nav_running->{
                 replaceFragment(RunningFragment())
-                supportActionBar!!.setTitle(R.string.menu_running_eng)
+                supportActionBar!!.setTitle(R.string.menu_running)
             }
             R.id.nav_preset->{
                 replaceFragment(PresetFragment())
-                supportActionBar!!.setTitle(R.string.menu_preset_eng)
+                supportActionBar!!.setTitle(R.string.menu_preset)
             }
             R.id.nav_Activity->{
                 replaceFragment(ActivityFragment())
-                supportActionBar!!.setTitle(R.string.menu_activity_eng)
+                supportActionBar!!.setTitle(R.string.menu_activity)
             }
             R.id.nav_setting->{
                 replaceFragment(SettingFragment())
-                supportActionBar!!.setTitle(R.string.menu_setting_eng)
+                supportActionBar!!.setTitle(R.string.menu_setting)
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
