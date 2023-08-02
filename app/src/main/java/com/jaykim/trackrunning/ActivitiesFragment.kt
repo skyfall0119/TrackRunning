@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 
-class ActivityFragment : Fragment() {
-
+class ActivitiesFragment : Fragment() {
 
 
     override fun onCreateView(
@@ -16,8 +15,7 @@ class ActivityFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_activity, container, false)
+        return inflater.inflate(R.layout.fragment_activities, container, false)
     }
-
 
 }

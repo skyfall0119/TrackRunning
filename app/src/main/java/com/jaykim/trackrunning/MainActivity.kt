@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 supportActionBar!!.setTitle(R.string.menu_preset)
             }
             R.id.nav_Activity->{
-                replaceFragment(ActivityFragment())
+                replaceFragment(ActivitiesFragment())
                 supportActionBar!!.setTitle(R.string.menu_activity)
             }
             R.id.nav_setting->{

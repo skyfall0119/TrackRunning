@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">TrackRunning</string>
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>
 
@@ -15,6 +16,18 @@
     <string name="running_rest">Rest</string>
 
 
+    <string name="run_btn_start">START</string>
+    <string name="run_btn_stop">STOP</string>
+
+    <string name="finished_btn_back">Back To Main Menu</string>
+    <string name="finished_completed">Workout Completed!</string>
+    <string name="finished_fastest">Fastest Lap Time</string>
+    <string name="finished_average">Average Lap Time</string>
+    <string name="finished_totaltime">Total Workout Time</string>
+    <string name="finished_totaldist">Total Distance</string>
+
+
+    <string name="activity_back">Back</string>
 
 
 </resources>

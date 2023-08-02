@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:text="400"
                 android:textSize="80sp"
-                app:layout_constraintStart_toStartOf="@id/guideline1_quickstart"
+                app:layout_constraintStart_toStartOf="@id/guideline_quickstart1"
 
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,7 +90,7 @@
                 android:text="@string/running_meter"
                 android:textSize="60sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/frame_quickstart_distance"
-                app:layout_constraintStart_toEndOf="@+id/guideline2_quickstart" />
+                app:layout_constraintStart_toEndOf="@+id/guideline_quickstart2" />
 
             <TextView
                 android:id="@+id/frame_quickstart_numlap"
@@ -99,7 +99,7 @@
                 android:text="5"
                 android:textSize="80sp"
 
-                app:layout_constraintStart_toStartOf="@id/guideline1_quickstart"
+                app:layout_constraintStart_toStartOf="@id/guideline_quickstart1"
                 app:layout_constraintTop_toBottomOf="@+id/frame_quickstart_distance" />
 
             <TextView
@@ -109,7 +109,7 @@
                 android:text="@string/running_laps"
                 android:textSize="50sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/frame_quickstart_numlap"
-                app:layout_constraintLeft_toLeftOf="@id/guideline2_quickstart" />
+                app:layout_constraintLeft_toLeftOf="@id/guideline_quickstart2" />
 
             <TextView
                 android:id="@+id/frame_quickstart_rest"
@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:text="40"
                 android:textSize="80sp"
-                app:layout_constraintLeft_toLeftOf="@id/guideline1_quickstart"
+                app:layout_constraintLeft_toLeftOf="@id/guideline_quickstart1"
                 app:layout_constraintTop_toBottomOf="@+id/frame_quickstart_numlap" />
 
             <TextView
@@ -127,7 +127,7 @@
                 android:text="@string/running_sec"
                 android:textSize="50sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/frame_quickstart_rest"
-                app:layout_constraintLeft_toRightOf="@id/guideline2_quickstart" />
+                app:layout_constraintLeft_toRightOf="@id/guideline_quickstart2" />
 
             <TextView
                 android:id="@+id/frame_quickstart_between"
@@ -136,17 +136,17 @@
                 android:text="@string/running_rest"
                 android:textSize="50sp"
                 app:layout_constraintTop_toBottomOf="@id/frame_quickstart_sec"
-                app:layout_constraintLeft_toRightOf="@id/guideline2_quickstart" />
+                app:layout_constraintLeft_toRightOf="@id/guideline_quickstart2" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline1_quickstart"
+                android:id="@+id/guideline_quickstart1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.1" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline2_quickstart"
+                android:id="@+id/guideline_quickstart2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

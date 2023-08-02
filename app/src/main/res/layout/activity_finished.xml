@@ -1,40 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ActivityFragment">
+    tools:context=".FinishedActivity">
 
 
     <TextView
-        android:id="@+id/activity_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="08/02/23"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_activity1"
+        android:text="@string/finished_completed"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_finished1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/activity_day"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/activity_day"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Monday"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_activity1"
-        app:layout_constraintLeft_toRightOf="@id/activity_date"
         app:layout_constraintRight_toRightOf="parent"
-
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_activity1"
+        android:id="@+id/guideline_finished1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -45,11 +31,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="20dp"
-        app:layout_constraintBottom_toTopOf="@id/guideline_activity2"
-        app:layout_constraintTop_toBottomOf="@id/guideline_activity1" />
+        app:layout_constraintBottom_toTopOf="@id/guideline_finished2"
+        app:layout_constraintTop_toBottomOf="@id/guideline_finished1" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_activity2"
+        android:id="@+id/guideline_finished2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -57,7 +43,7 @@
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_activity3"
+        android:id="@+id/guideline_finished3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -65,7 +51,7 @@
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_activity4"
+        android:id="@+id/guideline_finished4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -77,8 +63,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/guideline_activity4"
-        app:layout_constraintTop_toBottomOf="@id/guideline_activity2"
+        app:layout_constraintRight_toLeftOf="@id/guideline_finished4"
+        app:layout_constraintTop_toBottomOf="@id/guideline_finished2"
         android:layout_marginTop="20dp"
         android:text="@string/finished_totaltime"
         android:textSize="20sp" />
@@ -87,9 +73,9 @@
         android:id="@+id/tv_totalTime2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/guideline_activity4"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_finished4"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline_activity2"
+        app:layout_constraintTop_toBottomOf="@id/guideline_finished2"
         android:layout_marginTop="20dp"
         android:text="00:00:00"
         android:textSize="20sp" />
@@ -99,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/guideline_activity4"
+        app:layout_constraintRight_toLeftOf="@id/guideline_finished4"
         app:layout_constraintTop_toBottomOf="@id/tv_totalTime1"
         android:layout_marginTop="20dp"
         android:text="@string/finished_totaldist"
@@ -110,7 +96,7 @@
         android:id="@+id/tv_totalDist2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/guideline_activity4"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_finished4"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_totalTime2"
         android:layout_marginTop="20dp"
@@ -126,14 +112,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="20dp"
         android:textSize="20sp"
-        app:layout_constraintRight_toRightOf="@id/guideline_activity4"
+        app:layout_constraintRight_toRightOf="@id/guideline_finished4"
         app:layout_constraintTop_toBottomOf="@id/tv_totalDist1" />
 
     <TextView
         android:id="@+id/tv_fastest_laptime2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/guideline_activity4"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_finished4"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_totalDist2"
         android:layout_marginTop="20dp"
@@ -145,7 +131,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/guideline_activity4"
+        app:layout_constraintRight_toLeftOf="@id/guideline_finished4"
         android:layout_marginTop="20dp"
         android:text="@string/finished_average"
         android:textSize="20sp"
@@ -155,7 +141,7 @@
         android:id="@+id/tv_avg_laptime2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/guideline_activity4"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_finished4"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_fastest_laptime2"
         android:layout_marginTop="20dp"
@@ -166,16 +152,18 @@
 
 
     <Button
-        android:id="@+id/btn_activity_back"
-        android:layout_width="100dp"
+        android:id="@+id/btn_finished_backtomenu"
+        android:layout_width="200dp"
         android:layout_height="0dp"
         android:layout_marginVertical="10dp"
-        android:text="@string/activity_back"
+        android:text="@string/finished_btn_back"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline_activity3" />
+        app:layout_constraintTop_toBottomOf="@id/guideline_finished3" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
