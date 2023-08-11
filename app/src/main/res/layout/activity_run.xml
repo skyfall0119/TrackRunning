@@ -68,29 +68,33 @@
 
 
 
+
     <Button
         android:id="@+id/btn_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:text="@string/run_btn_start"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/guideline_btn"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/btn_stop"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:padding="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_btn"
         />
+
 
     <Button
         android:id="@+id/btn_stop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:text="@string/run_btn_stop"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/guideline_btn"
-        app:layout_constraintLeft_toRightOf="@id/btn_start"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btn_start"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+
         />
 
 

@@ -17,7 +17,9 @@
 
 
     <string name="run_btn_start">START</string>
+    <string name="run_btn_record">RECORD</string>
     <string name="run_btn_stop">STOP</string>
+    <string name="run_btn_break">BREAK</string>
 
     <string name="finished_btn_back">Back To Main Menu</string>
     <string name="finished_completed">Workout Completed!</string>
@@ -28,6 +30,7 @@
 
 
     <string name="activity_back">Back</string>
+
 
 
 </resources>
