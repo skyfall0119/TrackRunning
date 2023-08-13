@@ -14,16 +14,11 @@ class RunningFragment : Fragment() {
 
     private var _binding: FragmentRunningBinding? = null
     private val binding get() = _binding!!
-    var isQs = true
+    private var isQs = true
 
     //QuickStart NumberPicker items
     private val npItemDist = arrayOf("100", "200", "400", "800", "1200", "1600", "2000")
     private val npItemRest = arrayOf("30s", "1m", "1m 30s", "2m", "3m", "4m", "5m")
-
-    private lateinit var listDistance: MutableList<String>
-    private lateinit var listLaps  : MutableList<Integer>
-    private lateinit var listRest : MutableList<String>
-
 
 
     override fun onCreateView(
@@ -111,19 +106,6 @@ class RunningFragment : Fragment() {
 
     }
 
-    //get the return value from break time, and transform to timer format
-//    private fun getTime(i :Int):String{
-//        when (i){
-//            0 -> return "00:30:00"   //"30s"
-//            1 -> return "01:00:00"   //"1m"
-//            2 -> return "01:30:00"   // "1m 30s"
-//            3 -> return "02:00:00"   // "2m"
-//            4 -> return "03:00:00"   //  "3m"
-//            5 -> return "04:00:00"   //  "4m"
-//            6 -> return "05:00:00"   //  "5m"
-//        }
-//        return  "00:00:00"
-//    }
     private fun initBtn() {
         //when button start is pressed, pack the running sequence and send to RunActivity.
 
@@ -131,28 +113,23 @@ class RunningFragment : Fragment() {
             activity?.let{
                 val intent = Intent(context,RunActivity::class.java)
 
-                //(run + break) x (lap-1) + run
+
                 if(isQs){ //if quickstart, send the value from numberPicker
                     val qsRunData = ArrayList<SingleRun>() //Data Array to send
 
+                    //(run + break) x (lap-1)
                     for (i in 1 until binding.qsNpLaps.value){
-                        //lap
+
                         qsRunData.add(SingleRun(false,npItemDist[binding.qsNpDistance.value],
                             1,""))
-                        //break
-//                        val breakTime = getTime(binding.qsNpRest.value)
-//                        qsRunData.add(SingleRun(true,"0",1,npItemRest[binding.qsNpRest.value],
-//                            breakTime.substring(0,2),breakTime.substring(2,5),breakTime.substring(5,8)))
                         qsRunData.add(SingleRun(true,"0",1,npItemRest[binding.qsNpRest.value]
                             ))
-
                     }
                     // last run
                     qsRunData.add(SingleRun(false,npItemDist[binding.qsNpDistance.value],
                         1,"",))
 
                     intent.putExtra("runData", qsRunData )
-
                 } else{ //if preset, send the runData from preset
 
                 }

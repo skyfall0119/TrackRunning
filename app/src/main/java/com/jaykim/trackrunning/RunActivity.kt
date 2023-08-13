@@ -1,6 +1,7 @@
 package com.jaykim.trackrunning
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -59,13 +60,8 @@ class RunActivity : AppCompatActivity(){
 
 
 
-
                     //if last it was the last run. move to  finishedActivity
-                    if (runData.size == rvPos+1){
-                        //intent. send runData
-                        Toast.makeText(this,"last run. exit out", Toast.LENGTH_SHORT).show()
-                        //finish all the timer
-                    }
+                    if (runData.size == rvPos+1) finishWorkout()
 
                 } else { //first time starting, after break. after pause
                     // start the timer.
@@ -80,8 +76,11 @@ class RunActivity : AppCompatActivity(){
         //long click. pop dialog. ask if want to finish the workout.
         //if yes, exit out. save RunData to runDataBase
         btnStop.setOnLongClickListener {
-            //
-            Toast.makeText(this,"longClick. exit out", Toast.LENGTH_SHORT).show()
+
+            //TODO : popup dialog, ask if user wants to end.
+
+            finishWorkout()
+
             return@setOnLongClickListener true
         }
 
@@ -92,10 +91,6 @@ class RunActivity : AppCompatActivity(){
             isRunning = false
         }
     }
-
-
-
-
 
     private fun initRecycler() {
 
@@ -140,7 +135,8 @@ class RunActivity : AppCompatActivity(){
         }
     }
 
-    //break timer. update timer textview
+    //break countdown timer. update timer textview
+    //when timer ends, check the break - isDone. update the view.
     private fun breakTimer(s : String) {
         time = when (s) {
             "30s" -> 30000
@@ -181,7 +177,7 @@ class RunActivity : AppCompatActivity(){
                 binding.tvMillisecond.text = ".00"
                 binding.tvSecond.text = ":00"
                 binding.tvMinute.text = "0"
-                println("breakPoint - breakTimer time=0 : currentPos is $rvPos")
+
                 runData[rvPos].isDone = true
                 adapter.notifyItemChanged(rvPos)
                 duringBreak = false
@@ -196,12 +192,11 @@ class RunActivity : AppCompatActivity(){
     }
 
 
-
     //(when button start, stop is pressed)
     // update the number shown on the view.
 //    increase pos when called.
     private fun rvPosUpdate(){
-        println("breakPoint - rvPosUpdatea current pos is $rvPos")
+
         // 끝난 런 시간 기록해서 집어넣음.
         val millisec = time % 100
         val second = (time % 6000) / 100
@@ -220,6 +215,15 @@ class RunActivity : AppCompatActivity(){
         if (rvPos >= 2) binding.rv.scrollToPosition(rvPos)
     }
 
+
+    private fun finishWorkout(){
+        val intent = Intent(this,FinishedActivity::class.java)
+        intent.putExtra("runData", runData)
+        startActivity(intent)
+        finish()
+        // TODO : delete current activity from stack.
+
+    }
 
 
 }
