@@ -56,7 +56,7 @@
         app:layout_constraintBottom_toTopOf="@id/guideline_btn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        tools:listitem="@layout/run_rv_item"/>
+        tools:listitem="@layout/rv_item_run"/>
 
 
     <androidx.constraintlayout.widget.Guideline

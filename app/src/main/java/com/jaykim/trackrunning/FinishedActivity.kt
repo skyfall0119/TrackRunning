@@ -1,5 +1,6 @@
 package com.jaykim.trackrunning
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -33,12 +34,28 @@ class FinishedActivity : AppCompatActivity() {
 
 
 
-
+        getRunData()
         initDb()
         initRecyclerView()
+        initBtn()
         calcData()
 
+
         }
+
+    private fun initBtn() {
+        binding.btnFinishedBacktomenu.setOnClickListener{
+            finish()
+        }
+    }
+
+    private fun getRunData() {
+        runData = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("runData",ArrayList<SingleRun>()::class.java)!!
+        } else {
+            intent.getSerializableExtra("runData") as ArrayList<SingleRun>
+        }
+    }
 
     private fun calcData() {
 
@@ -56,12 +73,6 @@ class FinishedActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        runData = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra("runData",ArrayList<SingleRun>()::class.java)!!
-        } else {
-            intent.getSerializableExtra("runData") as ArrayList<SingleRun>
-        }
-
         adapter = FinishedActivityRvAdapter(runData)
         binding.finishedRv.adapter = adapter
         binding.finishedRv.layoutManager = LinearLayoutManager(this)
@@ -74,10 +85,7 @@ class FinishedActivity : AppCompatActivity() {
             runsDao = db.getRunsDao()
 
             //TODO : get today date and save it to the title
-            println("breakPoint databaseCheck: before insertRuns")
-            runsDao.insertRuns(RunsEntity(null,"8/12/23 Running", runData))
-            println("breakPoint databaseCheck: after insertRuns")
-
+//            runsDao.insertRuns(RunsEntity(null,"8/12/23 Running", runData))
 
             //TODO : delete this testcode
 //            val allRuns : List<RunsEntity> = runsDao.getAllRuns()

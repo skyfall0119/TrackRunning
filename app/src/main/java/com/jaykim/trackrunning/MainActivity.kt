@@ -43,10 +43,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
 
+        //call oncraete for fragments
+
+
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
+
             R.id.nav_running->{
                 replaceFragment(RunningFragment())
                 supportActionBar!!.setTitle(R.string.menu_running)
@@ -55,9 +60,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 replaceFragment(PresetFragment())
                 supportActionBar!!.setTitle(R.string.menu_preset)
             }
-            R.id.nav_Activity->{
+            R.id.nav_Activities->{
+
                 replaceFragment(ActivitiesFragment())
-                supportActionBar!!.setTitle(R.string.menu_activity)
+                supportActionBar!!.setTitle(R.string.menu_activities)
             }
             R.id.nav_setting->{
                 replaceFragment(SettingFragment())
@@ -68,7 +74,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    private fun replaceFragment(fragment:Fragment){
+    fun replaceFragment(fragment:Fragment){
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment)
         transaction.commit()

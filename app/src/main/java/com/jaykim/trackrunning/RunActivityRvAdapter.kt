@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.jaykim.trackrunning.databinding.RunRvItemBinding
+import com.jaykim.trackrunning.databinding.RvItemRunBinding
 
 class RunActivityRvAdapter (private val list : ArrayList<SingleRun>) :
     RecyclerView.Adapter<RunActivityRvAdapter.MyViewHolder>(){
 
 
 
-    inner class MyViewHolder (binding : RunRvItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MyViewHolder (binding : RvItemRunBinding) : RecyclerView.ViewHolder(binding.root) {
         val run_rv_distance = binding.runRvDistance
         val run_rv_min = binding.runRvMin
         val run_rv_sec = binding.runRvSec
@@ -27,7 +27,7 @@ class RunActivityRvAdapter (private val list : ArrayList<SingleRun>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding : RunRvItemBinding = RunRvItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding : RvItemRunBinding = RvItemRunBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
 
     }
@@ -72,11 +72,9 @@ class RunActivityRvAdapter (private val list : ArrayList<SingleRun>) :
 
         }
 
-        if (runData.isDone){
-            holder.run_rv_check.visibility = View.VISIBLE
-        } else{
-            holder.run_rv_check.visibility = View.INVISIBLE
-        }
+        if (runData.isDone) holder.run_rv_check.visibility = View.VISIBLE
+        else holder.run_rv_check.visibility = View.INVISIBLE
+
 
 
     }

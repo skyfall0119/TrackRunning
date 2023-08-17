@@ -77,7 +77,7 @@ class RunActivity : AppCompatActivity(){
         //if yes, exit out. save RunData to runDataBase
         btnStop.setOnLongClickListener {
 
-            //TODO : popup dialog, ask if user wants to end.
+            //TODO : pause the clock popup dialog, ask if user wants to end.
 
             finishWorkout()
 
