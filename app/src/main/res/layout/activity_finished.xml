@@ -8,15 +8,42 @@
 
 
     <TextView
+        android:id="@+id/finished_completed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+
         android:text="@string/finished_completed"
-        android:textSize="30sp"
+        android:textSize="35sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline_finished1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2"/>
+
+    <TextView
+        android:id="@+id/finished_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="23/08/29"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/finished_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/finished_completed"
+        android:layout_marginLeft="30dp"
+        />
+
+    <TextView
+        android:id="@+id/finished_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="morning Run"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_finished1"
+        app:layout_constraintStart_toStartOf="@id/finished_date"
+        app:layout_constraintTop_toBottomOf="@id/finished_date"
+
+
+        />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -24,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.2" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -40,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.65" />
 
 
     <androidx.constraintlayout.widget.Guideline

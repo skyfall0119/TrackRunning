@@ -51,7 +51,6 @@ class RunActivity : AppCompatActivity(){
             if (!duringBreak){ //during break, disable start button
                 if (isRunning){ //while running.
                     //change btn to start.
-                    Log.d("ButtonCheck", "rvPos : $rvPos  //  1. while running")
                     timer?.cancel()
                     // record the time -- posUpdate
                     binding.btnStart.text = getString(R.string.run_btn_break)

@@ -32,12 +32,24 @@ class ActivitiesFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentActivitiesBinding.inflate(inflater, container, false)
         val view = binding.root
-
-        initDb()
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initDb()
 
     }
 
+
+    private fun initDb() {
+        Thread{
+            db = AppDatabase.getInstance(requireContext() )!!
+            runsDao = db.getRunsDao()
+            runsList = runsDao.getAllRuns()
+            initRecyclerView()
+        }.start()
+    }
 
     private fun initRecyclerView() {
 
@@ -45,9 +57,10 @@ class ActivitiesFragment : Fragment() {
             adapter = ActivitiesRvAdapter(runsList)
             binding.activitiesRv.adapter = adapter
 
+
+            //onClickListener for recyclerview item.
             adapter.setOnItemClickListener(object : ActivitiesRvAdapter.onItemClickListener{
                 override fun onItemClick(view: View, position: Int) {
-//                    MainActivity().replaceFragment(ActivityFragment())
                     val bundle = Bundle()
                     bundle.putInt("position",position)
                     val singleFrag = ActivityFragment()
@@ -65,20 +78,7 @@ class ActivitiesFragment : Fragment() {
 
     }
 
-    private fun initDb() {
-        Thread{
-            db = AppDatabase.getInstance(requireContext() )!!
-            runsDao = db.getRunsDao()
-            runsList = runsDao.getAllRuns()
-            initRecyclerView()
-        }.start()
 
-
-
-
-
-
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

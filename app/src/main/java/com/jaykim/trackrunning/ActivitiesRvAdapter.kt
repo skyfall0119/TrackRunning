@@ -14,18 +14,13 @@ class ActivitiesRvAdapter(private val list: List<RunsEntity>) : RecyclerView.Ada
     inner class MyViewHolder (binding : RvItemActivitiesBinding) : RecyclerView.ViewHolder(binding.root){
         val title = binding.activitiesTitle
 
-
         // 아이템 클릭시 커스텀 리스너 이벤트 호출
         init{
             itemView.setOnClickListener {
                 val pos = adapterPosition
                 if (pos != RecyclerView.NO_POSITION && mOnItemClickListener != null){
                     mOnItemClickListener.onItemClick(itemView,pos)
-
                 }
-
-
-
             }
         }
 
@@ -42,10 +37,8 @@ class ActivitiesRvAdapter(private val list: List<RunsEntity>) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val allRuns : RunsEntity = list[position]
-        holder.title.text = allRuns.title
-
-
+        val eachRuns : RunsEntity = list[position]
+        holder.title.text = "${eachRuns.date}  ${eachRuns.title}"
 
     }
 

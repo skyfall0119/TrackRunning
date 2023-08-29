@@ -1,6 +1,6 @@
 package com.jaykim.trackrunning
 
-import android.content.Intent
+
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +9,13 @@ import com.jaykim.trackrunning.databinding.ActivityFinishedBinding
 import com.jaykim.trackrunning.db.AppDatabase
 import com.jaykim.trackrunning.db.RunsDao
 import com.jaykim.trackrunning.db.RunsEntity
+import java.time.DayOfWeek
+
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
+import java.util.Date
 import kotlin.concurrent.thread
 
 
@@ -24,6 +31,9 @@ class FinishedActivity : AppCompatActivity() {
     private lateinit var runsDao : RunsDao
     private lateinit var adapter : FinishedActivityRvAdapter
     private lateinit var runData : ArrayList<SingleRun>
+    private lateinit var curDate : String
+    private lateinit var curTime : String
+    private lateinit var curDay : DayOfWeek
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +44,9 @@ class FinishedActivity : AppCompatActivity() {
 
 
 
-        getRunData()
+        getData()
         initDb()
-        initRecyclerView()
+        initView()
         initBtn()
         calcData()
 
@@ -49,12 +59,16 @@ class FinishedActivity : AppCompatActivity() {
         }
     }
 
-    private fun getRunData() {
+    private fun getData() {
         runData = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra("runData",ArrayList<SingleRun>()::class.java)!!
         } else {
             intent.getSerializableExtra("runData") as ArrayList<SingleRun>
         }
+
+        curDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yy/MM/dd"))
+        curTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
+        curDay = LocalDate.now().dayOfWeek
     }
 
     private fun calcData() {
@@ -72,30 +86,25 @@ class FinishedActivity : AppCompatActivity() {
 
     }
 
-    private fun initRecyclerView() {
+    private fun initView() {
         adapter = FinishedActivityRvAdapter(runData)
         binding.finishedRv.adapter = adapter
         binding.finishedRv.layoutManager = LinearLayoutManager(this)
+
+        //update the UI text
+        binding.finishedTitle.text = "$curDay RUN"
+        binding.finishedDate.text = "$curDate $curTime"
     }
 
 
+    //save finished run data to the database with current time
     private fun initDb() {
         Thread{
             db = AppDatabase.getInstance(this)!!
             runsDao = db.getRunsDao()
 
-            //TODO : get today date and save it to the title
-//            runsDao.insertRuns(RunsEntity(null,"8/12/23 Running", runData))
+            runsDao.insertRuns(RunsEntity(null,curDate, curTime, "$curDay RUN", runData))
 
-            //TODO : delete this testcode
-//            val allRuns : List<RunsEntity> = runsDao.getAllRuns()
-//            println("breakPoint databaseCheck: getAllRuns - ${allRuns.size}")
-//            val mondayRun : ArrayList<SingleRun>  = allRuns[0].singleWorkout
-//            println("breakPoint databaseCheck: getAllRuns done ")
-//            println("breakPoint: mondayRun ${mondayRun}")
-//            println("breakPoint: mondayRun[0] type name ${mondayRun[0].javaClass.typeName}")
-//            println("breakPoint: mondayRun[0] type name ${mondayRun[0].javaClass.name}")
-//            println("breakPoint databaseCheck: mondayRun distance ${mondayRun[0].distance}")
         }.start()
     }
 

@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.jaykim.trackrunning.databinding.FinishedRvItemBinding
+import com.jaykim.trackrunning.databinding.RvItemFinishedBinding
 
 
 class FinishedActivityRvAdapter (private val list : ArrayList<SingleRun>) : RecyclerView.Adapter<FinishedActivityRvAdapter.MyViewHolder>() {
 
 
-    inner class MyViewHolder (binding : FinishedRvItemBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class MyViewHolder (binding : RvItemFinishedBinding) : RecyclerView.ViewHolder(binding.root){
         val finished_rv_distance = binding.finishedRvDistance
         val finished_rv_min = binding.finishedRvMin
         val finished_rv_sec = binding.finishedRvSec
@@ -21,7 +21,7 @@ class FinishedActivityRvAdapter (private val list : ArrayList<SingleRun>) : Recy
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding : FinishedRvItemBinding = FinishedRvItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding : RvItemFinishedBinding = RvItemFinishedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
 
     }

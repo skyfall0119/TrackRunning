@@ -30,8 +30,9 @@
 
 
     <string name="activity_back">Back</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="activity_delete">Delete</string>
+    <string name="activity_deleteDialog">Are you sure you want to Delete?</string>
+    <string name="activity_delete_yes">Yes</string>
+    <string name="activity_delete_no">No</string>
 
 </resources>
