@@ -22,7 +22,6 @@ class ActivityFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var db : AppDatabase
     private lateinit var runsDao: RunsDao
-    private lateinit var runsList : List<RunsEntity>
     private lateinit var currentRun : RunsEntity
     private lateinit var adapter : FinishedActivityRvAdapter
 
@@ -53,8 +52,7 @@ class ActivityFragment : Fragment() {
             //retrieve data
             db = AppDatabase.getInstance(requireContext() )!!
             runsDao = db.getRunsDao()
-            runsList = runsDao.getAllRuns()
-            currentRun = runsList[curPos]
+            currentRun = runsDao.getAllRuns()[curPos]
             initView()
         }.start()
     }
@@ -70,6 +68,8 @@ class ActivityFragment : Fragment() {
 
             binding.activityDate.text = currentRun.date
             binding.activityTitle.text = currentRun.title
+            binding.tvTotalTime2.text = currentRun.totalTime
+            binding.tvTotalDist2.text = currentRun.totalDist
         }
     }
 
@@ -87,7 +87,6 @@ class ActivityFragment : Fragment() {
             builder.setMessage(getString(R.string.activity_deleteDialog))
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.activity_delete_yes)) { dialog, id->
-                    println("breakpoint : dialog. positive clicked")
                     //delete and return to activity
                     Thread{
                         runsDao.deleteRuns(currentRun)
@@ -102,14 +101,11 @@ class ActivityFragment : Fragment() {
                 .setNegativeButton(getString(R.string.activity_delete_no)) {dialog, id->
                     dialog.dismiss()
                 }
-
                 .create().show()
-
 
         }
 
     }
-
 
 
     private fun backToActivities(){
@@ -117,7 +113,6 @@ class ActivityFragment : Fragment() {
         transaction.replace(R.id.fragment_container,ActivitiesFragment())
         transaction.commit()
     }
-
 
 
     override fun onDestroyView() {

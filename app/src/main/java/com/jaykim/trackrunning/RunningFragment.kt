@@ -17,8 +17,8 @@ class RunningFragment : Fragment() {
     private var isQs = true
 
     //QuickStart NumberPicker items
-    private val npItemDist = arrayOf("100", "200", "400", "800", "1200", "1600", "2000")
-    private val npItemRest = arrayOf("30s", "1m", "1m 30s", "2m", "3m", "4m", "5m")
+    private val npItemDist = Helper.qsDist
+    private val npItemRest = Helper.qsRest
 
 
     override fun onCreateView(

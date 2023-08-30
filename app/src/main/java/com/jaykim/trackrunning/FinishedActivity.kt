@@ -33,6 +33,8 @@ class FinishedActivity : AppCompatActivity() {
     private lateinit var runData : ArrayList<SingleRun>
     private lateinit var curDate : String
     private lateinit var curTime : String
+    private lateinit var totalTime : String
+    private lateinit var totalDist : String
     private lateinit var curDay : DayOfWeek
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,12 +45,10 @@ class FinishedActivity : AppCompatActivity() {
 
 
 
-
+        initBtn()
         getData()
         initDb()
         initView()
-        initBtn()
-        calcData()
 
 
         }
@@ -57,6 +57,10 @@ class FinishedActivity : AppCompatActivity() {
         binding.btnFinishedBacktomenu.setOnClickListener{
             finish()
         }
+    }
+
+    override fun onBackPressed() {
+        finish()
     }
 
     private fun getData() {
@@ -68,23 +72,12 @@ class FinishedActivity : AppCompatActivity() {
 
         curDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yy/MM/dd"))
         curTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
+        totalTime = Helper.getTotalTime(runData)
+        totalDist = Helper.getTotalDist(runData)
+
         curDay = LocalDate.now().dayOfWeek
     }
 
-    private fun calcData() {
-
-        //TODO : calculate fastest laptime and average laptime when Item is selected.
-
-        thread {
-//            val allRuns : List<RunsEntity> = runsDao.getAllRuns()
-//            println("breakPoint databaseCheck: getAllRuns")
-//            val mondayRun = allRuns[0].singleWorkout
-//            println("breakPoint databaseCheck: retrieve data ${mondayRun.get(0).distance}")
-        }
-
-
-
-    }
 
     private fun initView() {
         adapter = FinishedActivityRvAdapter(runData)
@@ -94,6 +87,8 @@ class FinishedActivity : AppCompatActivity() {
         //update the UI text
         binding.finishedTitle.text = "$curDay RUN"
         binding.finishedDate.text = "$curDate $curTime"
+        binding.tvTotalDist2.text = totalDist
+        binding.tvTotalTime2.text = totalTime
     }
 
 
@@ -103,7 +98,8 @@ class FinishedActivity : AppCompatActivity() {
             db = AppDatabase.getInstance(this)!!
             runsDao = db.getRunsDao()
 
-            runsDao.insertRuns(RunsEntity(null,curDate, curTime, "$curDay RUN", runData))
+            runsDao.insertRuns(RunsEntity(
+                null,curDate, curTime, "$curDay RUN", totalDist, totalTime, runData))
 
         }.start()
     }

@@ -13,5 +13,7 @@ data class RunsEntity(
     @ColumnInfo(name="date") var date : String,
     @ColumnInfo(name="time") var time : String,
     @ColumnInfo(name="title") var title : String,
+    @ColumnInfo(name="totalDist") var totalDist : String,
+    @ColumnInfo(name="totalTime") var totalTime : String,
     @ColumnInfo(name="singleWorkout") var singleWorkout : ArrayList<SingleRun>
 )
