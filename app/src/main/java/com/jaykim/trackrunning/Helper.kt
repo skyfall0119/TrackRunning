@@ -1,6 +1,5 @@
 package com.jaykim.trackrunning
 
-import com.jaykim.trackrunning.db.RunsEntity
 
 object Helper {
 
@@ -9,8 +8,8 @@ object Helper {
     val qsRest = arrayOf("30s", "1m", "1m 30s", "2m", "3m", "4m", "5m")
 
 
-    //convert breaktime in string to Integer for the calculation
-    fun BreakToInt(s:String) : Int {
+    //convert breakTime in string to Integer for the calculation
+    fun breakToInt(s:String) : Int {
         val time = when (s) {
             "30s" -> 30000
             "1m" -> 60000
@@ -26,44 +25,30 @@ object Helper {
 
 
 
-    fun StringTimeToInt(min : String, sec : String, millisec : String) : Int {
-        var time = 0
+    fun stringTimeToInt(min : String, sec : String, ms : String) : Int {
 
-        println("breakpoint : strTimeToInt min $min")
-        println("breakpoint : strTimeToInt sec $sec")
-        println("breakpoint : strTimeToInt ms $millisec")
+        val minInt = min.toInt()
+        val secInt = sec.substring(1,3).toInt()
+        val msInt = ms.substring(1,3).toInt()
 
-        var minInt = min.toInt()
-        var secInt = sec.substring(1,3).toInt()
-        var millisecInt = millisec.substring(1,3).toInt()
-
-        time = (minInt * 60000) + (secInt * 1000) + millisecInt * 10
-
-        println("breakpoint : strTimeToInt minInt : $minInt")
-        println("breakpoint : strTimeToInt secInt $secInt")
-        println("breakpoint : strTimeToInt msInt $millisecInt")
-
-
-        println("breakpoint : strTimeToInt return $time")
-
-        return time
+        return ((minInt*60000) + (secInt*1000) + msInt*10)
     }
 
 
     fun getTotalTime(runs : ArrayList<SingleRun>) : String{
         var totalTime = 0
         runs.forEach {
-            if (!it.isRest) totalTime += StringTimeToInt(it.min, it.sec, it.millisec)
+            if (!it.isRest) totalTime += stringTimeToInt(it.min, it.sec, it.millisec)
         }
 
 
         println("breakpoint : getTotalTime Int $totalTime")
         val minute = (totalTime / 60000)
         val second = (totalTime % 60000) / 1000
-        val millisec = (totalTime / 10) % 100
+        val ms = (totalTime / 10) % 100
 
         val minStr = if (minute < 10) "0${minute}" else "$minute"
-        val msStr =if (millisec < 10) "0${millisec}" else "$millisec"
+        val msStr =if (ms < 10) "0${ms}" else "$ms"
         val secStr= if (second < 10) "0${second}" else "$second"
 
         return "$minStr:$secStr.$msStr"

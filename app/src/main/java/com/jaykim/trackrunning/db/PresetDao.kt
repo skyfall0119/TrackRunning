@@ -4,19 +4,24 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 
 @Dao
 interface PresetDao {
     //get all
-    @Query("SELECT * FROM RunsEntity")
-    fun getAllPreset() : List<RunsEntity>
+    @Query("SELECT * FROM PresetEntity")
+    fun getAllPreset() : List<PresetEntity>
 
     // insert run
     @Insert
-    fun insertPreset(runs : RunsEntity)
+    fun insertPreset(preset : PresetEntity)
 
     // delete run
     @Delete
-    fun deletePreset(runs : RunsEntity)
+    fun deletePreset(preset : PresetEntity)
+
+
+    @Update
+    fun updatePreset(preset : PresetEntity)
 }

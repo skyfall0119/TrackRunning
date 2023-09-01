@@ -32,10 +32,15 @@ class RunningFragment : Fragment() {
 
         radioSet()
         initPicker()
+        initPresetView()
         initBtn()
 
 
         return view
+    }
+
+    private fun initPresetView() {
+
     }
 
     private fun radioSet() {
@@ -44,25 +49,18 @@ class RunningFragment : Fragment() {
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             when(checkedId){
                 R.id.radio_qs->{  // to quickstart frame
-                    if(!isQs){
-                        isQs = true
-                        //if current is not quickstart, switch to quickstart frame
-                        binding.tvRadioTitle.text = getString(R.string.running_radio_qs)
-                        binding.frameQs.visibility = View.VISIBLE
-                        binding.frameRv.visibility = View.INVISIBLE
-                    }
-
+                    isQs = true
+                    //if current is not quickstart, switch to quickstart frame
+                    binding.tvRadioTitle.text = getString(R.string.running_radio_qs)
+                    binding.frameQs.visibility = View.VISIBLE
+                    binding.frameRv.visibility = View.INVISIBLE
                 }
 
                 R.id.radio_preset->{ // to preset frame
-                    if(isQs){
-                        isQs = false
-                        //if current is quickstart. switch to preset frame
-                        binding.tvRadioTitle.text = getString(R.string.running_radio_pre)
-                        binding.frameQs.visibility = View.INVISIBLE
-                        binding.frameRv.visibility = View.VISIBLE
-                    }
-
+                    isQs = false
+                    binding.tvRadioTitle.text = getString(R.string.running_radio_pre)
+                    binding.frameQs.visibility = View.INVISIBLE
+                    binding.frameRv.visibility = View.VISIBLE
                 }
             }
 
@@ -98,7 +96,7 @@ class RunningFragment : Fragment() {
 
         //numberpicker rest items
         npRest.minValue = 0
-        npRest.maxValue = npItemDist.size-1
+        npRest.maxValue = npItemRest.size-1
         npRest.displayedValues = npItemRest
         npRest.wrapSelectorWheel = false
         npRest.textSize = 100f
@@ -116,7 +114,6 @@ class RunningFragment : Fragment() {
 
                 if(isQs){ //if quickstart, send the value from numberPicker
                     val qsRunData = ArrayList<SingleRun>() //Data Array to send
-
                     //(run + break) x (lap-1)
                     for (i in 1 until binding.qsNpLaps.value){
 
@@ -131,6 +128,7 @@ class RunningFragment : Fragment() {
 
                     intent.putExtra("runData", qsRunData )
                 } else{ //if preset, send the runData from preset
+
 
                 }
 

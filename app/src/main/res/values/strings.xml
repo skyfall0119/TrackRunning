@@ -15,7 +15,6 @@
     <string name="running_sec">Sec</string>
     <string name="running_rest">Rest</string>
 
-
     <string name="run_btn_start">START</string>
     <string name="run_btn_record">RECORD</string>
     <string name="run_btn_stop">STOP</string>
@@ -28,11 +27,14 @@
     <string name="finished_totaltime">Total Workout Time</string>
     <string name="finished_totaldist">Total Distance</string>
 
-
     <string name="activity_back">Back</string>
     <string name="activity_delete">Delete</string>
     <string name="activity_deleteDialog">Are you sure you want to Delete?</string>
     <string name="activity_delete_yes">Yes</string>
     <string name="activity_delete_no">No</string>
+    <string name="preset_no_data">Create your own preset.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="preset_add_title">Title</string>
 
 </resources>

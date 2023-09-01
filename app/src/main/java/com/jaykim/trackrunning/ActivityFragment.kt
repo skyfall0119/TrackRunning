@@ -4,11 +4,14 @@ import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jaykim.trackrunning.databinding.FragmentActivitiesBinding
 import com.jaykim.trackrunning.databinding.FragmentActivityBinding
 import com.jaykim.trackrunning.db.AppDatabase
 import com.jaykim.trackrunning.db.RunsDao
@@ -70,6 +73,11 @@ class ActivityFragment : Fragment() {
             binding.activityTitle.text = currentRun.title
             binding.tvTotalTime2.text = currentRun.totalTime
             binding.tvTotalDist2.text = currentRun.totalDist
+
+            //update actionbar
+
+            (requireActivity() as AppCompatActivity).supportActionBar!!.title = currentRun.title
+            setHasOptionsMenu(true)
         }
     }
 
@@ -80,31 +88,6 @@ class ActivityFragment : Fragment() {
         binding.btnActivityBack.setOnClickListener{
             backToActivities()
         }
-
-
-        binding.btnActivityDelete.setOnClickListener{
-            val builder = AlertDialog.Builder(requireActivity())
-            builder.setMessage(getString(R.string.activity_deleteDialog))
-                .setCancelable(false)
-                .setPositiveButton(getString(R.string.activity_delete_yes)) { dialog, id->
-                    //delete and return to activity
-                    Thread{
-                        runsDao.deleteRuns(currentRun)
-                    }.start()
-
-                    Toast.makeText(requireActivity(),
-                        "${currentRun.date} ${currentRun.title} deleted",
-                        Toast.LENGTH_LONG).show()
-                    backToActivities()
-                }
-
-                .setNegativeButton(getString(R.string.activity_delete_no)) {dialog, id->
-                    dialog.dismiss()
-                }
-                .create().show()
-
-        }
-
     }
 
 
@@ -112,6 +95,44 @@ class ActivityFragment : Fragment() {
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container,ActivitiesFragment())
         transaction.commit()
+        (requireActivity() as AppCompatActivity).supportActionBar!!.setTitle(R.string.menu_activities)
+    }
+
+
+    // actionbar delete button override
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.action_delete,menu)
+
+    }
+    // actionbar delete button override
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId){
+            R.id.action_delete -> {
+                val builder = AlertDialog.Builder(requireActivity())
+                builder.setMessage(getString(R.string.activity_deleteDialog))
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.activity_delete_yes)) { dialog, id->
+                        //delete and return to activity
+                        Thread{
+                            runsDao.deleteRuns(currentRun)
+                        }.start()
+
+                        Toast.makeText(requireActivity(),
+                            "${currentRun.date} ${currentRun.title} deleted",
+                            Toast.LENGTH_LONG).show()
+                        backToActivities()
+                    }
+
+                    .setNegativeButton(getString(R.string.activity_delete_no)) {dialog, id->
+                        dialog.dismiss()
+                    }
+                    .create().show()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 
