@@ -1,6 +1,7 @@
 package com.jaykim.trackrunning
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +27,7 @@ class RunActivity : AppCompatActivity(){
     private var time = 0
 
 
-    @SuppressLint("SetTextI18n")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -49,12 +50,14 @@ class RunActivity : AppCompatActivity(){
 
         btnStart.setOnClickListener {
             if (!duringBreak){ //during break, disable start button
+                binding.tvTitle.text = "${ runData[rvPos].distance } m"
                 if (isRunning){ //while running.
                     //change btn to start.
                     timer?.cancel()
                     // record the time -- posUpdate
                     binding.btnStart.text = getString(R.string.run_btn_break)
                     rvPosUpdate()
+
                     breakTimer(runData[rvPos].breakPick)
 
 
@@ -62,7 +65,7 @@ class RunActivity : AppCompatActivity(){
                     //if last it was the last run. move to  finishedActivity
                     if (runData.size == rvPos+1) finishWorkout()
 
-                } else { //first time starting, after break. after pause
+                } else { //first time starting, after breaktime expires. after pause
                     // start the timer.
                     runTimer()
                     //change btn to record
@@ -76,9 +79,19 @@ class RunActivity : AppCompatActivity(){
         //if yes, exit out. save RunData to runDataBase
         btnStop.setOnLongClickListener {
 
-            //TODO : pause the clock popup dialog, ask if user wants to end.
 
-            finishWorkout()
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage(getString(R.string.activity_endDialog))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.activity_delete_yes)) { dialog, id->
+                    //end the ru
+                    finishWorkout()
+                }
+
+                .setNegativeButton(getString(R.string.activity_delete_no)) {dialog, id->
+                    dialog.dismiss()
+                }
+                .create().show()
 
             return@setOnLongClickListener true
         }
@@ -102,13 +115,10 @@ class RunActivity : AppCompatActivity(){
             adapter = RunActivityRvAdapter(runData)
             binding.rv.adapter = adapter
             binding.rv.layoutManager = LinearLayoutManager(this)
+
         }
 
     }
-
-
-
-
 
 
     //run timer. update timer textview
@@ -150,9 +160,10 @@ class RunActivity : AppCompatActivity(){
 
         duringBreak = true
         isRunning = false
+        binding.tvTitle.text = "${getString(R.string.run_btn_break)}"
 
         //for test
-        time = 5000
+        time = 3000
 
 
         cdTimer = object : CountDownTimer(time.toLong(), 10) {
@@ -210,8 +221,11 @@ class RunActivity : AppCompatActivity(){
 
 
         if (runData.size != rvPos+1) rvPos++
+
+
         //move current run to the middle
-        if (rvPos >= 2) binding.rv.scrollToPosition(rvPos)
+        binding.rv.scrollToPosition(rvPos)
+//        if (rvPos >= 2) binding.rv.scrollToPosition(rvPos)
     }
 
 
@@ -220,8 +234,6 @@ class RunActivity : AppCompatActivity(){
         intent.putExtra("runData", runData)
         startActivity(intent)
         finish()
-        // TODO : delete current activity from stack.
-
     }
 
 

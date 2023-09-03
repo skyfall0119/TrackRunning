@@ -168,7 +168,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/frame_rv"
+            android:id="@+id/running_rv"
             android:visibility="invisible">
 
         </androidx.recyclerview.widget.RecyclerView>

@@ -18,7 +18,6 @@ class PresetFragment : Fragment() {
     private var _binding: FragmentPresetBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: PresetRvAdapter
-
     private lateinit var db : AppDatabase
     private lateinit var presetDao : PresetDao
     private lateinit var presetList : List<PresetEntity>

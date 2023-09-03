@@ -23,6 +23,8 @@ class RunActivityRvAdapter (private val list : ArrayList<SingleRun>) :
         val run_rv_breakTime = binding.runRvBreakTime
         val run_rv_check = binding.runRvCheck
         val root = binding.root
+        val runLayout = binding.runRvRunLayout
+        val breakLayout = binding.runRvBreakLayout
 
     }
 
@@ -39,43 +41,37 @@ class RunActivityRvAdapter (private val list : ArrayList<SingleRun>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val runData = list[position]
         if (runData.isRest){
-            holder.run_rv_break.visibility = View.VISIBLE
-            holder.run_rv_breakTime.visibility = View.VISIBLE
-            holder.run_rv_distance.visibility = View.INVISIBLE
-            holder.run_rv_meter.visibility = View.INVISIBLE
-            holder.run_rv_min.visibility = View.INVISIBLE
-            holder.run_rv_sec.visibility = View.INVISIBLE
-            holder.run_rv_millisec.visibility = View.INVISIBLE
+            holder.runLayout.visibility = View.INVISIBLE
+            holder.breakLayout.visibility = View.VISIBLE
             holder.run_rv_breakTime.text = runData.breakPick
 
 
+            if (runData.isDone) {
+                holder.breakLayout.setBackgroundColor(Color.GRAY)
+                holder.run_rv_break.setTextColor(Color.WHITE)
+                holder.run_rv_breakTime.setTextColor(Color.WHITE)
+            }
+
+
         } else {
-            holder.run_rv_break.visibility = View.INVISIBLE
-            holder.run_rv_breakTime.visibility = View.INVISIBLE
-            holder.run_rv_distance.visibility = View.VISIBLE
-            holder.run_rv_meter.visibility = View.VISIBLE
-            holder.run_rv_min.visibility = View.VISIBLE
-            holder.run_rv_sec.visibility = View.VISIBLE
-            holder.run_rv_millisec.visibility = View.VISIBLE
+            holder.runLayout.visibility = View.VISIBLE
+            holder.breakLayout.visibility = View.INVISIBLE
             holder.run_rv_distance.text = runData.distance
             holder.run_rv_min.text = runData.min
             holder.run_rv_sec.text = runData.sec
             holder.run_rv_millisec.text = runData.millisec
 
-//            if (runData.isDone){
-//                holder.run_rv_distance.setTextColor(Color.WHITE)
-//                holder.run_rv_meter.setTextColor(Color.WHITE)
-//                holder.run_rv_min.setTextColor(Color.WHITE)
-//                holder.run_rv_sec.setTextColor(Color.WHITE)
-//                holder.run_rv_millisec.setTextColor(Color.WHITE)
-//            }
+            if (runData.isDone) {
 
+                holder.runLayout.setBackgroundColor(Color.GRAY)
+                holder.run_rv_distance.setTextColor(Color.WHITE)
+                holder.run_rv_meter.setTextColor(Color.WHITE)
+                holder.run_rv_min.setTextColor(Color.WHITE)
+                holder.run_rv_sec.setTextColor(Color.WHITE)
+                holder.run_rv_millisec.setTextColor(Color.WHITE)
+
+            }
         }
-
-        if (runData.isDone) holder.run_rv_check.visibility = View.VISIBLE
-        else holder.run_rv_check.visibility = View.INVISIBLE
-
-
 
     }
 }

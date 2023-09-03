@@ -1,6 +1,7 @@
 package com.jaykim.trackrunning
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,9 +10,12 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.getSystemService
 import com.jaykim.trackrunning.databinding.FragmentPresetAddBinding
 import com.jaykim.trackrunning.db.AppDatabase
 import com.jaykim.trackrunning.db.PresetDao
@@ -28,15 +32,15 @@ class PresetAddFragment : Fragment() {
     private lateinit var presetEntity : PresetEntity
     private lateinit var adapter : PresetAddRvAdapter
     private lateinit var runData : ArrayList<SingleRun>
-    var curPos = 0
+
+    private var curPos = 0
+    private lateinit var curTitle : String
+    private lateinit var imm : InputMethodManager
     private val npItemDist = Helper.qsDist
     private val npItemRest = Helper.qsRest
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,8 +63,6 @@ class PresetAddFragment : Fragment() {
 
 
 
-
-
     private fun initDb() {
         thread {
 
@@ -70,18 +72,18 @@ class PresetAddFragment : Fragment() {
             val args = this.arguments
             curPos = args?.getInt("position")!!
 
-            println("breakpoint : presetAdd $curPos received")
 
             // if adding new, initialize empty runData
             if (curPos == -1) {
                 runData = ArrayList()
+                curTitle = "New Preset"
             } else {
                 //if accessing to already created preset, get preset from the position
                 presetEntity = presetDao.getAllPreset()[curPos]
                 runData = presetEntity.SingleWorkout
                 binding.presetAddEnterTitle.setText(presetEntity.title)
                 // show delete button on the appbar only when previous preset is opened
-                (requireActivity() as AppCompatActivity).supportActionBar!!.title = presetEntity.title
+                curTitle = presetEntity.title
                 setHasOptionsMenu(true)
 
             }
@@ -95,6 +97,8 @@ class PresetAddFragment : Fragment() {
 
             adapter = PresetAddRvAdapter(runData)
             binding.presetAddRv.adapter = adapter
+
+            (requireActivity() as AppCompatActivity).supportActionBar!!.title = curTitle
         }
 
     }
@@ -102,7 +106,6 @@ class PresetAddFragment : Fragment() {
 
 
     private fun initBtn() {
-
 
         val npAddDist = binding.presetAddNpdist
         val npAddRest = binding.presetAddNprest
@@ -128,35 +131,47 @@ class PresetAddFragment : Fragment() {
 
 
 
-        //dist+,
+        //dist+ btn
         binding.presetAddBtnDist.setOnClickListener {
-            runData.add(SingleRun(false, npItemDist[npAddDist.value],1, "0"))
-            adapter.notifyDataSetChanged()
+            runData.add(SingleRun(false, npItemDist[npAddDist.value], "0"))
+            adapter.notifyItemInserted(runData.size-1)
+            binding.presetAddRv.scrollToPosition(runData.size-1)
         }
-//        rest+
+//        rest+ btn
         binding.presetAddBtnRest.setOnClickListener {
-            runData.add(SingleRun(true,"0", 1, npItemRest[npAddRest.value]))
-            adapter.notifyDataSetChanged()
+            runData.add(SingleRun(true,"0",  npItemRest[npAddRest.value]))
+            adapter.notifyItemInserted(runData.size-1)
+            binding.presetAddRv.scrollToPosition(runData.size-1)
 
         }
 
-        //Done
+        //Done btn
         binding.presetAddDone.setOnClickListener {
-            thread{
-                val title =
-                    if (binding.presetAddEnterTitle.text.toString() == "") {"My Custom Run"}
-                    else {binding.presetAddEnterTitle.text.toString()}
 
-                //if new, add new Entity. if existing, update the previous.
-                if (curPos == -1)
-                    presetDao.insertPreset(PresetEntity(null,title,runData))
-                else presetDao.updatePreset(presetEntity)
+            //if no items added, toast a message.
+            if (adapter.itemCount == 0) {
+                Toast.makeText(requireActivity(),
+                    "Please add an item",
+                    Toast.LENGTH_SHORT).show()
 
+            } else { //if no title entered, add default title. add/update the list. back to preset
+                thread{
+                    val title =
+                        if (binding.presetAddEnterTitle.text.toString() == "") {"My Custom Run"}
+                        else {binding.presetAddEnterTitle.text.toString()}
+
+                    //if new, add new Entity. if existing, update the previous.
+                    if (curPos == -1)
+                        presetDao.insertPreset(PresetEntity(null,title,runData))
+                    else presetDao.updatePreset(presetEntity)
+
+                }
+                backToPreset()
             }
 
-            backToPreset()
+
         }
-        //back
+        //back btn
         binding.presetAddBack.setOnClickListener {
             backToPreset()
         }
@@ -199,11 +214,8 @@ class PresetAddFragment : Fragment() {
                     .create().show()
             }
         }
-
         return super.onOptionsItemSelected(item)
     }
-
-
 
 
 

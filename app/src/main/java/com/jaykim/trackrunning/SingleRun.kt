@@ -11,7 +11,7 @@ import java.io.Serializable
 data class SingleRun (
     val isRest : Boolean,
     val distance : String,
-    val set : Int,
+//    val set : Int,
     val breakPick : String,
     var min : String = "0",
     var sec : String = ":00",
@@ -19,7 +19,3 @@ data class SingleRun (
     var isDone : Boolean = false
 ):Serializable
 
-
-
-
-//

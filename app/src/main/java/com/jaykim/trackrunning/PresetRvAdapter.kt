@@ -51,4 +51,6 @@ class PresetRvAdapter (private val list : List<PresetEntity>) : RecyclerView.Ada
     }
 
 
+
+
 }

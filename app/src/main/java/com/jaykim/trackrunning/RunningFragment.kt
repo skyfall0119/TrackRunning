@@ -7,7 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.NumberPicker
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.jaykim.trackrunning.databinding.FragmentRunningBinding
+import com.jaykim.trackrunning.db.AppDatabase
+import com.jaykim.trackrunning.db.PresetDao
+import com.jaykim.trackrunning.db.PresetEntity
+import kotlin.concurrent.thread
 
 class RunningFragment : Fragment() {
 
@@ -15,6 +22,11 @@ class RunningFragment : Fragment() {
     private var _binding: FragmentRunningBinding? = null
     private val binding get() = _binding!!
     private var isQs = true
+
+    private lateinit var adapter: RunningRvAdapter
+    private lateinit var db : AppDatabase
+    private lateinit var presetDao : PresetDao
+    private lateinit var presetList : List<PresetEntity>
 
     //QuickStart NumberPicker items
     private val npItemDist = Helper.qsDist
@@ -29,10 +41,9 @@ class RunningFragment : Fragment() {
         _binding = FragmentRunningBinding.inflate(inflater, container, false)
         val view = binding.root
 
-
+        initPresetView()
         radioSet()
         initPicker()
-        initPresetView()
         initBtn()
 
 
@@ -41,6 +52,18 @@ class RunningFragment : Fragment() {
 
     private fun initPresetView() {
 
+        thread {
+            db = AppDatabase.getInstance(requireContext())!!
+            presetDao = db.getPresetDao()
+            presetList = presetDao.getAllPreset()
+
+            //update preset UI
+            activity?.runOnUiThread {
+                adapter = RunningRvAdapter(presetList)
+                binding.runningRv.adapter = adapter
+                binding.runningRv.layoutManager = LinearLayoutManager(context)
+            }
+        }
     }
 
     private fun radioSet() {
@@ -53,21 +76,21 @@ class RunningFragment : Fragment() {
                     //if current is not quickstart, switch to quickstart frame
                     binding.tvRadioTitle.text = getString(R.string.running_radio_qs)
                     binding.frameQs.visibility = View.VISIBLE
-                    binding.frameRv.visibility = View.INVISIBLE
+                    binding.runningRv.visibility = View.INVISIBLE
                 }
 
                 R.id.radio_preset->{ // to preset frame
                     isQs = false
                     binding.tvRadioTitle.text = getString(R.string.running_radio_pre)
                     binding.frameQs.visibility = View.INVISIBLE
-                    binding.frameRv.visibility = View.VISIBLE
+                    binding.runningRv.visibility = View.VISIBLE
+                    adapter.notifyDataSetChanged()
                 }
             }
 
         }
 
     }
-
 
     // quickstart 에 numberpicker 세팅. 빠르게 설정해서 런.
     private fun initPicker() {
@@ -110,33 +133,48 @@ class RunningFragment : Fragment() {
         binding.btnRunningStart.setOnClickListener {
             activity?.let{
                 val intent = Intent(context,RunActivity::class.java)
-
-
                 if(isQs){ //if quickstart, send the value from numberPicker
                     val qsRunData = ArrayList<SingleRun>() //Data Array to send
                     //(run + break) x (lap-1)
                     for (i in 1 until binding.qsNpLaps.value){
 
                         qsRunData.add(SingleRun(false,npItemDist[binding.qsNpDistance.value],
-                            1,""))
-                        qsRunData.add(SingleRun(true,"0",1,npItemRest[binding.qsNpRest.value]
+                            ""))
+                        qsRunData.add(SingleRun(true,"0",npItemRest[binding.qsNpRest.value]
                             ))
                     }
                     // last run
                     qsRunData.add(SingleRun(false,npItemDist[binding.qsNpDistance.value],
-                        1,"",))
+                        ""))
 
                     intent.putExtra("runData", qsRunData )
-                } else{ //if preset, send the runData from preset
-
-
+                    startActivity(intent)
                 }
 
+                else{ //if preset, send the runData from preset
+                    // if selected, send selected runData.
+                    // if not selected, prompt a message. "Please select"
+                    if (adapter.selectedPos != RecyclerView.NO_POSITION){
+                        intent.putExtra("runData", presetList[adapter.selectedPos].SingleWorkout )
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(requireContext(),"Please select a preset",Toast.LENGTH_SHORT).show()
+                    }
+                }
 
-                startActivity(intent)
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
 
 
     override fun onDestroyView() {

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 
 
 class SettingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+    // TODO: SETTING
 
 
 

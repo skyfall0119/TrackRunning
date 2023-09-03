@@ -32,9 +32,11 @@
     <string name="activity_deleteDialog">Are you sure you want to Delete?</string>
     <string name="activity_delete_yes">Yes</string>
     <string name="activity_delete_no">No</string>
+
     <string name="preset_no_data">Create your own preset.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="preset_add_title">Title</string>
+    <string name="preset_titleDialog">Run List</string>
+    <string name="activity_endDialog">End the Workout?</string>
+
 
 </resources>
