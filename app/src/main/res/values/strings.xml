@@ -38,5 +38,7 @@
     <string name="preset_titleDialog">Run List</string>
     <string name="activity_endDialog">End the Workout?</string>
 
+<!--    TODO: translate to Korean-->
+
 
 </resources>

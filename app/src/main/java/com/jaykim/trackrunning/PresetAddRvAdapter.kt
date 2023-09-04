@@ -1,12 +1,14 @@
 package com.jaykim.trackrunning
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jaykim.trackrunning.databinding.RvItemPresetAddBinding
 
-class PresetAddRvAdapter (private val list : List<SingleRun>): RecyclerView.Adapter<PresetAddRvAdapter.MyViewHolder>(){
+class PresetAddRvAdapter (private val list : ArrayList<SingleRun>): RecyclerView.Adapter<PresetAddRvAdapter.MyViewHolder>(){
+
 
     inner class MyViewHolder (binding : RvItemPresetAddBinding) : RecyclerView.ViewHolder(binding.root)
     {
@@ -29,17 +31,46 @@ class PresetAddRvAdapter (private val list : List<SingleRun>): RecyclerView.Adap
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val runData = list[position]
+        val pos = position
         if (runData.isRest){
-            holder.runLayout.visibility = View.INVISIBLE
+            holder.runLayout.visibility = View.GONE
             holder.restLayout.visibility = View.VISIBLE
             holder.breakTime.text = runData.breakPick
 
         } else {
             holder.runLayout.visibility = View.VISIBLE
-            holder.restLayout.visibility = View.INVISIBLE
+            holder.restLayout.visibility = View.GONE
             holder.runDist.text = runData.distance
         }
+
+
+//                //long click drag. highlight
+//        holder.runLayout.setOnLongClickListener {
+//            holder.runLayout.setBackgroundColor(Color.LTGRAY)
+//            return@setOnLongClickListener true
+//        }
+//
+//        holder.restLayout.setOnLongClickListener {
+//            holder.restLayout.setBackgroundColor(Color.LTGRAY)
+//            return@setOnLongClickListener true
+//        }
     }
+
+
+
+
+    fun deleteItem(position : Int){
+        list.removeAt(position)
+        notifyDataSetChanged()
+    }
+
+    fun unHighlightItem(holder: MyViewHolder, position: Int){
+        holder.runLayout.setBackgroundColor(Color.WHITE)
+        holder.runLayout.setBackgroundColor(Color.WHITE)
+    }
+
+
+
 
 
 }

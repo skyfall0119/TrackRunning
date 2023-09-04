@@ -1,11 +1,13 @@
 package com.jaykim.trackrunning
 
 import android.app.AlertDialog
+import android.app.Application
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.jaykim.trackrunning.databinding.RvItemPresetRunningBinding
 import com.jaykim.trackrunning.db.PresetEntity
@@ -40,12 +42,12 @@ class RunningRvAdapter (private val list : List<PresetEntity>) : RecyclerView.Ad
         holder.title.text = preset.title
 
         if (selectedPos == position) {
-            holder.title.setTextColor(Color.WHITE)
-            holder.layout.setBackgroundColor(Color.GRAY)
+
+            holder.layout.setBackgroundColor(Color.LTGRAY)
 
         }
         else {
-            holder.title.setTextColor(Color.BLACK)
+
             holder.layout.setBackgroundColor(Color.WHITE)
         }
 

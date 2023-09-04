@@ -16,10 +16,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.getSystemService
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.jaykim.trackrunning.databinding.FragmentPresetAddBinding
+import com.jaykim.trackrunning.databinding.RvItemPresetAddBinding
 import com.jaykim.trackrunning.db.AppDatabase
 import com.jaykim.trackrunning.db.PresetDao
 import com.jaykim.trackrunning.db.PresetEntity
+import java.util.Collections
 import kotlin.concurrent.thread
 
 
@@ -58,6 +62,8 @@ class PresetAddFragment : Fragment() {
 
 
         return binding.root
+
+        //TODO : swap item to delete
     }
 
 
@@ -98,6 +104,56 @@ class PresetAddFragment : Fragment() {
             adapter = PresetAddRvAdapter(runData)
             binding.presetAddRv.adapter = adapter
 
+            // swap / drag action config
+            val swipeGesture = object : SwipeGesture(){
+                // longpressed to drag move
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    val fromPos = viewHolder.adapterPosition
+                    val toPos = target.adapterPosition
+
+                    Collections.swap(runData, fromPos, toPos)
+                    adapter.notifyItemMoved(fromPos, toPos)
+
+                    return false
+                }
+
+                override fun onSelectedChanged(
+                    viewHolder: RecyclerView.ViewHolder?,
+                    actionState: Int
+                ) {
+                    if (actionState == ItemTouchHelper.ACTION_STATE_DRAG)
+                        viewHolder?.itemView?.alpha = 0.5f
+                    super.onSelectedChanged(viewHolder, actionState)
+                }
+
+                override fun clearView(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder
+                ) {
+                    viewHolder?.itemView?.alpha = 1.0f
+                    super.clearView(recyclerView, viewHolder)
+                }
+
+
+
+                // swipe left to delete
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    when (direction){
+                        ItemTouchHelper.LEFT -> {
+                            adapter.deleteItem(viewHolder.adapterPosition)
+                        }
+                    }
+                    super.onSwiped(viewHolder, direction)
+                }
+            }
+            ItemTouchHelper(swipeGesture).attachToRecyclerView(binding.presetAddRv)
+
+
+
             (requireActivity() as AppCompatActivity).supportActionBar!!.title = curTitle
         }
 
@@ -134,6 +190,7 @@ class PresetAddFragment : Fragment() {
         //dist+ btn
         binding.presetAddBtnDist.setOnClickListener {
             runData.add(SingleRun(false, npItemDist[npAddDist.value], "0"))
+
             adapter.notifyItemInserted(runData.size-1)
             binding.presetAddRv.scrollToPosition(runData.size-1)
         }
