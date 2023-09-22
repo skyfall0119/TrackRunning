@@ -4,6 +4,7 @@ package com.jaykim.trackrunning
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaykim.trackrunning.databinding.ActivityFinishedBinding
 import com.jaykim.trackrunning.db.AppDatabase
@@ -31,6 +32,7 @@ class FinishedActivity : AppCompatActivity() {
     private lateinit var runsDao : RunsDao
     private lateinit var adapter : FinishedActivityRvAdapter
     private lateinit var runData : ArrayList<SingleRun>
+    private var runDataMap = mutableMapOf<String, Array<String>>()
     private lateinit var curDate : String
     private lateinit var curTime : String
     private lateinit var totalTime : String
@@ -48,6 +50,7 @@ class FinishedActivity : AppCompatActivity() {
         initBtn()
         getData()
         initDb()
+        calcData()
         initView()
 
 
@@ -89,6 +92,42 @@ class FinishedActivity : AppCompatActivity() {
         binding.finishedDate.text = "$curDate $curTime"
         binding.tvTotalDist2.text = totalDist
         binding.tvTotalTime2.text = totalTime
+
+        adapter.setOnItemClickListener(object : ActivitiesRvAdapter.onItemClickListener{
+            override fun onItemClick(view: View, position: Int) {
+                adapter.selectedPos = position
+                adapter.notifyDataSetChanged()
+
+                binding.tvFastestLaptime2.text = runDataMap[runData[position].distance]?.get(0)
+                binding.tvAvgLaptime2.text = runDataMap[runData[position].distance]?.get(1)
+            }
+        })
+    }
+
+    private fun calcData() {
+        val sortData = mutableMapOf<String,ArrayList<Int>>()
+
+        //sort by distance
+        for (singleRun in runData) {
+            if (sortData.containsKey(singleRun.distance)) {
+                sortData[singleRun.distance]?.add(singleRun.msTime)
+            }else{
+                val arl = ArrayList<Int>()
+                arl.add(singleRun.msTime)
+                sortData[singleRun.distance] = arl
+            }
+        }
+
+        sortData.keys.forEach {key->
+            var sum = 0
+            var fastest = sortData[key]!![0]
+            for (e in sortData[key]!!)  {
+                sum += e
+                if (e < fastest ) fastest = e
+            }
+            var avg = sum / sortData[key]!!.size
+            runDataMap[key] = arrayOf(Helper.intTimeToStr(fastest),Helper.intTimeToStr(avg))
+        }
     }
 
 

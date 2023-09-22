@@ -208,6 +208,7 @@ class RunActivity : AppCompatActivity(){
     private fun rvPosUpdate(){
 
         // 끝난 런 시간 기록해서 집어넣음.
+        runData[rvPos].msTime = time
         val millisec = time % 100
         val second = (time % 6000) / 100
         val minute = time / 6000

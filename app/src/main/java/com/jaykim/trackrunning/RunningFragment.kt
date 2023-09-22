@@ -69,7 +69,7 @@ class RunningFragment : Fragment() {
     private fun radioSet() {
         val radioGroup = binding.radiogroupRunning
 
-        radioGroup.setOnCheckedChangeListener { group, checkedId ->
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId){
                 R.id.radio_qs->{  // to quickstart frame
                     isQs = true

@@ -18,6 +18,7 @@ import com.jaykim.trackrunning.db.RunsDao
 import com.jaykim.trackrunning.db.RunsEntity
 
 
+
 class ActivityFragment : Fragment() {
 
 
@@ -27,6 +28,8 @@ class ActivityFragment : Fragment() {
     private lateinit var runsDao: RunsDao
     private lateinit var currentRun : RunsEntity
     private lateinit var adapter : FinishedActivityRvAdapter
+    private var runDataMap = mutableMapOf<String, Array<String>>()
+
 
 
     override fun onCreateView(
@@ -56,10 +59,38 @@ class ActivityFragment : Fragment() {
             db = AppDatabase.getInstance(requireContext() )!!
             runsDao = db.getRunsDao()
             currentRun = runsDao.getAllRuns()[curPos]
+
+            calcData()
             initView()
+
         }.start()
     }
 
+    private fun calcData() {
+        val sortData = mutableMapOf<String,ArrayList<Int>>()
+
+        //sort by distance
+        for (singleRun in currentRun.singleWorkout) {
+            if (sortData.containsKey(singleRun.distance)) {
+                sortData[singleRun.distance]?.add(singleRun.msTime)
+            }else{
+                val arl = ArrayList<Int>()
+                arl.add(singleRun.msTime)
+                sortData[singleRun.distance] = arl
+            }
+        }
+
+        sortData.keys.forEach {key->
+            var sum = 0
+            var fastest = sortData[key]!![0]
+            for (e in sortData[key]!!)  {
+                sum += e
+                if (e < fastest ) fastest = e
+            }
+            var avg = sum / sortData[key]!!.size
+            runDataMap[key] = arrayOf(Helper.intTimeToStr(fastest),Helper.intTimeToStr(avg))
+        }
+    }
 
 
     private fun initView() {
@@ -69,13 +100,28 @@ class ActivityFragment : Fragment() {
             binding.activityRv.adapter = adapter
             binding.activityRv.layoutManager = LinearLayoutManager(requireActivity())
 
+
             binding.activityDate.text = currentRun.date
             binding.activityTitle.text = currentRun.title
             binding.tvTotalTime2.text = currentRun.totalTime
             binding.tvTotalDist2.text = currentRun.totalDist
 
-            //update actionbar
 
+            //fastest, average time onclicklistener
+            adapter.setOnItemClickListener(object : ActivitiesRvAdapter.onItemClickListener{
+                override fun onItemClick(view: View, position: Int) {
+                    adapter.selectedPos = position
+                    adapter.notifyDataSetChanged()
+
+                    binding.tvFastestLaptime2.text = runDataMap[currentRun.singleWorkout[position].distance]?.get(0)
+                    binding.tvAvgLaptime2.text = runDataMap[currentRun.singleWorkout[position].distance]?.get(1)
+                }
+            })
+
+
+
+
+            //update actionbar
             (requireActivity() as AppCompatActivity).supportActionBar!!.title = currentRun.title
             setHasOptionsMenu(true)
         }
@@ -113,7 +159,7 @@ class ActivityFragment : Fragment() {
                 val builder = AlertDialog.Builder(requireActivity())
                 builder.setMessage(getString(R.string.activity_deleteDialog))
                     .setCancelable(false)
-                    .setPositiveButton(getString(R.string.activity_delete_yes)) { dialog, id->
+                    .setPositiveButton(getString(R.string.activity_delete_yes)) { _, _ ->
                         //delete and return to activity
                         Thread{
                             runsDao.deleteRuns(currentRun)
@@ -125,7 +171,7 @@ class ActivityFragment : Fragment() {
                         backToActivities()
                     }
 
-                    .setNegativeButton(getString(R.string.activity_delete_no)) {dialog, id->
+                    .setNegativeButton(getString(R.string.activity_delete_no)) { dialog, _ ->
                         dialog.dismiss()
                     }
                     .create().show()
@@ -145,3 +191,4 @@ class ActivityFragment : Fragment() {
 
 
 }
+

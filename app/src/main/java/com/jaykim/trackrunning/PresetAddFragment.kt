@@ -8,9 +8,11 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -60,10 +62,10 @@ class PresetAddFragment : Fragment() {
         initDb()
         initBtn()
 
+//        requireActivity().dispatchTouchEvent()
+
 
         return binding.root
-
-        //TODO : swap item to delete
     }
 
 
@@ -82,7 +84,7 @@ class PresetAddFragment : Fragment() {
             // if adding new, initialize empty runData
             if (curPos == -1) {
                 runData = ArrayList()
-                curTitle = "New Preset"
+                curTitle = getString(R.string.preset_add_navTitle)
             } else {
                 //if accessing to already created preset, get preset from the position
                 presetEntity = presetDao.getAllPreset()[curPos]
@@ -208,19 +210,24 @@ class PresetAddFragment : Fragment() {
             //if no items added, toast a message.
             if (adapter.itemCount == 0) {
                 Toast.makeText(requireActivity(),
-                    "Please add an item",
+                    getString(R.string.preset_add_noItem),
                     Toast.LENGTH_SHORT).show()
 
             } else { //if no title entered, add default title. add/update the list. back to preset
                 thread{
-                    val title =
-                        if (binding.presetAddEnterTitle.text.toString() == "") {"My Custom Run"}
-                        else {binding.presetAddEnterTitle.text.toString()}
+                    val title = binding.presetAddEnterTitle.text.toString()
+
+                    if (binding.presetAddEnterTitle.text.toString() == "") {getString(R.string.preset_add_defaultTitle)}
+                    else {binding.presetAddEnterTitle.text.toString()}
 
                     //if new, add new Entity. if existing, update the previous.
                     if (curPos == -1)
                         presetDao.insertPreset(PresetEntity(null,title,runData))
-                    else presetDao.updatePreset(presetEntity)
+
+                    else {
+                        presetEntity.title = title
+                        presetDao.updatePreset(presetEntity)
+                    }
 
                 }
                 backToPreset()
@@ -234,6 +241,7 @@ class PresetAddFragment : Fragment() {
         }
 
     }
+
 
 
 
@@ -260,7 +268,7 @@ class PresetAddFragment : Fragment() {
                         }.start()
 
                         Toast.makeText(requireActivity(),
-                            "${presetEntity.title} deleted",
+                            "${presetEntity.title} ${getString(R.string.preset_add_deleted)}",
                             Toast.LENGTH_LONG).show()
                         backToPreset()
                     }

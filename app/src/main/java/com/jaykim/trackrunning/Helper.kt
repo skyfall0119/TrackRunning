@@ -35,6 +35,19 @@ object Helper {
     }
 
 
+    fun intTimeToStr (i : Int) : String{
+        val minute = (i / 6000)
+        val second = (i % 6000) / 100
+        val ms = i % 100
+
+        val minStr = if (minute < 10) "0${minute}" else "$minute"
+        val msStr =if (ms < 10) "0${ms}" else "$ms"
+        val secStr= if (second < 10) "0${second}" else "$second"
+
+        return "$minStr:$secStr.$msStr"
+    }
+
+
     fun getTotalTime(runs : ArrayList<SingleRun>) : String{
         var totalTime = 0
         runs.forEach {

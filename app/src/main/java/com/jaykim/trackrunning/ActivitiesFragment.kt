@@ -57,6 +57,14 @@ class ActivitiesFragment : Fragment() {
             adapter = ActivitiesRvAdapter(runsList)
             binding.activitiesRv.adapter = adapter
 
+            if (adapter.itemCount == 0) {
+                binding.activitiesRv.visibility = View.GONE
+                binding.activitiesNoData.visibility = View.VISIBLE
+            } else {
+                binding.activitiesRv.visibility = View.VISIBLE
+                binding.activitiesNoData.visibility = View.GONE
+            }
+
 
             //onClickListener for recyclerview item.
             adapter.setOnItemClickListener(object : ActivitiesRvAdapter.onItemClickListener{

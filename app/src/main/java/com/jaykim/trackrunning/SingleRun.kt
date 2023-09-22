@@ -11,11 +11,11 @@ import java.io.Serializable
 data class SingleRun (
     val isRest : Boolean,
     val distance : String,
-//    val set : Int,
     val breakPick : String,
     var min : String = "0",
     var sec : String = ":00",
     var millisec : String = ".00",
-    var isDone : Boolean = false
+    var isDone : Boolean = false,
+    var msTime : Int = 0
 ):Serializable
 

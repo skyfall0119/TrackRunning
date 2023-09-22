@@ -1,2 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">TrackRunning</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+
+    <string name="menu_activities">Activities</string>
+    <string name="menu_running">Running</string>
+    <string name="menu_setting">Setting</string>
+    <string name="menu_preset">Run Preset</string>
+    <string name="main_exit">Press back again to Exit</string>
+
+    <string name="running_radio_qs">Quick Start</string>
+    <string name="running_radio_pre">Preset</string>
+    <string name="running_meter">m</string>
+    <string name="running_laps">Laps</string>
+    <string name="running_sec">Sec</string>
+    <string name="running_rest">Rest</string>
+
+    <string name="run_btn_start">START</string>
+    <string name="run_btn_record">RECORD</string>
+    <string name="run_btn_stop">STOP</string>
+    <string name="run_btn_break">BREAK</string>
+
+    <string name="finished_btn_back">Back To Main Menu</string>
+    <string name="finished_completed">Workout Completed!</string>
+    <string name="finished_fastest">Fastest Lap Time</string>
+    <string name="finished_average">Average Lap Time</string>
+    <string name="finished_totaltime">Total Workout Time</string>
+    <string name="finished_totaldist">Total Distance</string>
+
+    <string name="activity_back">Back</string>
+    <string name="activity_delete">Delete</string>
+    <string name="activity_deleteDialog">Are you sure you want to Delete?</string>
+    <string name="activity_delete_yes">Yes</string>
+    <string name="activity_delete_no">No</string>
+    <string name="activity_endDialog">End the Workout?</string>
+
+    <string name="activities_no_data">No Activities</string>
+
+    <string name="preset_no_data">Create your own preset.</string>
+    <string name="preset_titleDialog">Run List</string>
+
+    <string name="preset_add_done">Done</string>
+    <string name="preset_add_back">Back</string>
+    <string name="preset_add_distance">Distance</string>
+    <string name="preset_add_break">Break</string>
+    <string name="preset_add_hint">Enter Preset title\n</string>
+    <string name="preset_add_navTitle">New Preset</string>
+    <string name="preset_add_noItem">Please add an item</string>
+    <string name="preset_add_defaultTitle">My Custom Run</string>
+    <string name="preset_add_deleted">deleted</string>
+
+
+</resources>
