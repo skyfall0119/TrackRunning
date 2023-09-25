@@ -70,7 +70,6 @@ class PresetFragment : Fragment() {
                 override fun onItemClick(view: View, position: Int) {
                     val bundle = Bundle()
                     bundle.putInt("position",position)
-                    println("breakpoint : preset $position clicked")
                     val singleFrag = PresetAddFragment()
                     singleFrag.arguments = bundle
                     val transaction = requireActivity().supportFragmentManager.beginTransaction()

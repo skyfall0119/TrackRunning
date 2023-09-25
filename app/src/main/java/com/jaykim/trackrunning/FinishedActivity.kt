@@ -88,7 +88,7 @@ class FinishedActivity : AppCompatActivity() {
         binding.finishedRv.layoutManager = LinearLayoutManager(this)
 
         //update the UI text
-        binding.finishedTitle.text = "$curDay RUN"
+        binding.finishedTitle.text = "$curDay ${getString(R.string.finished_title_run)}"
         binding.finishedDate.text = "$curDate $curTime"
         binding.tvTotalDist2.text = totalDist
         binding.tvTotalTime2.text = totalTime
@@ -138,7 +138,8 @@ class FinishedActivity : AppCompatActivity() {
             runsDao = db.getRunsDao()
 
             runsDao.insertRuns(RunsEntity(
-                null,curDate, curTime, "$curDay RUN", totalDist, totalTime, runData))
+                null,curDate, curTime, "$curDay ${getString(R.string.finished_title_run)}",
+                totalDist, totalTime, runData))
 
         }.start()
     }

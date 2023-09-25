@@ -4,9 +4,12 @@ import android.app.AlertDialog
 import android.app.Application
 import android.app.Dialog
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.SimpleAdapter
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.jaykim.trackrunning.databinding.RvItemPresetRunningBinding
@@ -23,6 +26,8 @@ class RunningRvAdapter (private val list : List<PresetEntity>) : RecyclerView.Ad
 
 
     }
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding : RvItemPresetRunningBinding =
@@ -60,15 +65,33 @@ class RunningRvAdapter (private val list : List<PresetEntity>) : RecyclerView.Ad
         // on long click, show the run list
         holder.layout.setOnLongClickListener{view->
 
-            val itemsList = ArrayList<String>()
+
+            val list = ArrayList<HashMap<String, String>>()
             preset.SingleWorkout.forEach {
-                if(it.isRest) itemsList.add("Break   ${it.breakPick}")
-                else itemsList.add("Run   ${it.distance} m")
+                var map = HashMap<String,String>()
+                if(it.isRest) {
+                    map["list1"] = "${view.context.getString(R.string.preset_add_break)}"
+                    map["list2"] = "${it.breakPick}"
+                }
+                else {
+                    map["list1"] = "${view.context.getString(R.string.preset_add_run)}"
+                    map["list2"] = "${it.distance} m"
+
+                }
+                list.add(map)
             }
+
+            var keys = arrayOf("list1", "list2")
+            var ids = intArrayOf(R.id.preset_add_dialog1,R.id.preset_add_dialog2)
+            var adapter = SimpleAdapter(view.context,list,R.layout.dialog_preset,keys,ids)
+
+
+
 
             AlertDialog.Builder(view.context)
                 .setTitle(holder.title.text)
-                .setItems(itemsList.toTypedArray(),null)
+                .setAdapter(adapter,null)
+//                .setItems(list,null)
                 .show()
 
             return@setOnLongClickListener true

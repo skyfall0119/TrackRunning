@@ -192,7 +192,6 @@ class PresetAddFragment : Fragment() {
         //dist+ btn
         binding.presetAddBtnDist.setOnClickListener {
             runData.add(SingleRun(false, npItemDist[npAddDist.value], "0"))
-
             adapter.notifyItemInserted(runData.size-1)
             binding.presetAddRv.scrollToPosition(runData.size-1)
         }
@@ -201,7 +200,6 @@ class PresetAddFragment : Fragment() {
             runData.add(SingleRun(true,"0",  npItemRest[npAddRest.value]))
             adapter.notifyItemInserted(runData.size-1)
             binding.presetAddRv.scrollToPosition(runData.size-1)
-
         }
 
         //Done btn
@@ -215,10 +213,10 @@ class PresetAddFragment : Fragment() {
 
             } else { //if no title entered, add default title. add/update the list. back to preset
                 thread{
-                    val title = binding.presetAddEnterTitle.text.toString()
+                    var title = binding.presetAddEnterTitle.text.toString()
+                    if (title == "") title = getString(R.string.preset_add_defaultTitle)
 
-                    if (binding.presetAddEnterTitle.text.toString() == "") {getString(R.string.preset_add_defaultTitle)}
-                    else {binding.presetAddEnterTitle.text.toString()}
+
 
                     //if new, add new Entity. if existing, update the previous.
                     if (curPos == -1)
@@ -228,12 +226,9 @@ class PresetAddFragment : Fragment() {
                         presetEntity.title = title
                         presetDao.updatePreset(presetEntity)
                     }
-
                 }
                 backToPreset()
             }
-
-
         }
         //back btn
         binding.presetAddBack.setOnClickListener {

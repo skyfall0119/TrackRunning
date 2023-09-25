@@ -55,7 +55,6 @@ object Helper {
         }
 
 
-        println("breakpoint : getTotalTime Int $totalTime")
         val minute = (totalTime / 60000)
         val second = (totalTime % 60000) / 1000
         val ms = (totalTime / 10) % 100

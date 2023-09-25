@@ -31,7 +31,6 @@ class PresetAddRvAdapter (private val list : ArrayList<SingleRun>): RecyclerView
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val runData = list[position]
-        val pos = position
         if (runData.isRest){
             holder.runLayout.visibility = View.GONE
             holder.restLayout.visibility = View.VISIBLE
@@ -43,34 +42,12 @@ class PresetAddRvAdapter (private val list : ArrayList<SingleRun>): RecyclerView
             holder.runDist.text = runData.distance
         }
 
-
-//                //long click drag. highlight
-//        holder.runLayout.setOnLongClickListener {
-//            holder.runLayout.setBackgroundColor(Color.LTGRAY)
-//            return@setOnLongClickListener true
-//        }
-//
-//        holder.restLayout.setOnLongClickListener {
-//            holder.restLayout.setBackgroundColor(Color.LTGRAY)
-//            return@setOnLongClickListener true
-//        }
     }
-
-
-
 
     fun deleteItem(position : Int){
         list.removeAt(position)
         notifyDataSetChanged()
     }
-
-    fun unHighlightItem(holder: MyViewHolder, position: Int){
-        holder.runLayout.setBackgroundColor(Color.WHITE)
-        holder.runLayout.setBackgroundColor(Color.WHITE)
-    }
-
-
-
 
 
 }

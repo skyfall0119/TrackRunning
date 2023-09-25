@@ -64,12 +64,6 @@ class SettingFragment : PreferenceFragmentCompat() {
         }
     }
 
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-    }
-
-
     override fun onResume() {
         super.onResume()
         pref.registerOnSharedPreferenceChangeListener(prefListener)

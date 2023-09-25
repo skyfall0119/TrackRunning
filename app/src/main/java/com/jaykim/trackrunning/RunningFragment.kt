@@ -158,22 +158,14 @@ class RunningFragment : Fragment() {
                         intent.putExtra("runData", presetList[adapter.selectedPos].SingleWorkout )
                         startActivity(intent)
                     } else {
-                        Toast.makeText(requireContext(),"Please select a preset",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(),getString(R.string.running_unselected),Toast.LENGTH_SHORT).show()
                     }
+
                 }
 
             }
         }
     }
-
-
-
-
-
-
-
-
-
 
 
 

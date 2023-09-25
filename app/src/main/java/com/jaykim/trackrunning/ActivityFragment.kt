@@ -66,6 +66,7 @@ class ActivityFragment : Fragment() {
         }.start()
     }
 
+   //fastest average calc
     private fun calcData() {
         val sortData = mutableMapOf<String,ArrayList<Int>>()
 
@@ -166,7 +167,7 @@ class ActivityFragment : Fragment() {
                         }.start()
 
                         Toast.makeText(requireActivity(),
-                            "${currentRun.date} ${currentRun.title} deleted",
+                            "${currentRun.date} ${currentRun.title} ${getString(R.string.activity_deleted)}",
                             Toast.LENGTH_LONG).show()
                         backToActivities()
                     }
