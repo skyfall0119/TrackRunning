@@ -36,31 +36,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         initNav(savedInstanceState)
-        initLang()
-
-
-
-
 
 
 
     }
 
-    override fun attachBaseContext(newBase: Context?) {
-        
-        super.attachBaseContext(newBase)
-    }
 
-    private fun initLang() {
-        SettingFragment().configuration = Configuration()
-        SettingFragment().pref = PreferenceManager.getDefaultSharedPreferences(this)
-
-
-        resources.updateConfiguration(Configuration(),resources.displayMetrics)
-
-
-
-    }
 
     private fun initNav(savedInstanceState: Bundle?) {
         drawerLayout =  binding.drawerLayout
@@ -80,18 +61,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             supportActionBar!!.setTitle(R.string.menu_running)
         }
 
-    }
-
-    // presetAddFragment 에서 title EditText 에서 키보드 내리기.
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
-
-        if(currentFocus is EditText) {
-            currentFocus!!.clearFocus()
-        }
-
-        return super.dispatchTouchEvent(ev)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -126,6 +95,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
+
+    // presetAddFragment 에서 title EditText 에서 키보드 내리기.
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+
+        if(currentFocus is EditText) {
+            currentFocus!!.clearFocus()
+        }
+
+        return super.dispatchTouchEvent(ev)
+    }
 
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)){

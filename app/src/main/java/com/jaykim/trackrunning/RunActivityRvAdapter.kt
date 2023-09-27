@@ -21,7 +21,6 @@ class RunActivityRvAdapter (private val list : ArrayList<SingleRun>) :
         val run_rv_break = binding.runRvBreak
         val run_rv_meter = binding.runRvMeter
         val run_rv_breakTime = binding.runRvBreakTime
-        val run_rv_check = binding.runRvCheck
         val root = binding.root
         val runLayout = binding.runRvRunLayout
         val breakLayout = binding.runRvBreakLayout

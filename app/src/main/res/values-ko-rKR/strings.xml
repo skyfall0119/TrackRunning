@@ -41,8 +41,6 @@
     <string name="preset_titleDialog">런닝 목록</string>
     <string name="activities_no_data">활동 내역 없음</string>
 
-
-
     <string name="preset_add_done">완료</string>
     <string name="preset_add_back">취소</string>
     <string name="preset_add_distance">거리</string>
@@ -58,5 +56,6 @@
 
     <string name="finished_title_run">런</string>
     <string name="running_unselected">프리셋을 선택해주세요</string>
+
 
 </resources>

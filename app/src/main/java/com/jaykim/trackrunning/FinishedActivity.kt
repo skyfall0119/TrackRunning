@@ -78,7 +78,10 @@ class FinishedActivity : AppCompatActivity() {
         totalTime = Helper.getTotalTime(runData)
         totalDist = Helper.getTotalDist(runData)
 
+
+        //TODO
         curDay = LocalDate.now().dayOfWeek
+
     }
 
 
