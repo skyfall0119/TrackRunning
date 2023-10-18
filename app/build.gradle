@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id("kotlin-parcelize")
     id 'kotlin-kapt'
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -38,6 +39,7 @@ android {
     }
 
 
+
 }
 
 dependencies {
@@ -51,7 +53,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
     implementation 'com.google.code.gson:gson:2.10.1'
 
     def room_version = "2.5.0"
@@ -60,4 +61,13 @@ dependencies {
 
     def preference_version = "1.2.1"
     implementation("androidx.preference:preference-ktx:$preference_version")
+
+
+    //admob
+    implementation 'com.google.android.gms:play-services-ads:22.4.0'
+
+    //firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+
 }

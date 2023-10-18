@@ -1,14 +1,12 @@
 package com.jaykim.trackrunning
 
-import android.annotation.SuppressLint
+
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaykim.trackrunning.databinding.ActivityRunBinding
 import java.util.Timer
@@ -115,6 +113,7 @@ class RunActivity : AppCompatActivity(){
             adapter = RunActivityRvAdapter(runData)
             binding.rv.adapter = adapter
             binding.rv.layoutManager = LinearLayoutManager(this)
+            binding.tvTitle.text = "${ runData[rvPos].distance } m"
 
         }
 
@@ -135,7 +134,7 @@ class RunActivity : AppCompatActivity(){
             //update UI on UIThread
             runOnUiThread {
                 if(isRunning) {
-                    binding.tvMillisecond.text = "." + if (millisec < 10) "0${millisec}" else "${millisec}"
+                    binding.tvMillisecond.text = "." + if (millisec < 10) "0${millisec}" else "$millisec"
                     binding.tvSecond.text = ":" + if (second < 10) "0${second}" else "$second"
                     binding.tvMinute.text = "$minute"
 
@@ -162,9 +161,6 @@ class RunActivity : AppCompatActivity(){
         isRunning = false
         binding.tvTitle.text = "${getString(R.string.run_btn_break)}"
 
-        //for test
-        time = 3000
-
 
         cdTimer = object : CountDownTimer(time.toLong(), 10) {
             override fun onTick(p0: Long) {
@@ -175,7 +171,7 @@ class RunActivity : AppCompatActivity(){
 
                 //update UI on UIThread
                 runOnUiThread {
-                    binding.tvMillisecond.text ="." + if (millisec < 10) "0${millisec}" else "${millisec}"
+                    binding.tvMillisecond.text ="." + if (millisec < 10) "0${millisec}" else "$millisec"
                     binding.tvSecond.text = ":" + if (second < 10) "0${second}" else "$second"
                     binding.tvMinute.text = "$minute"
                 }
@@ -213,7 +209,7 @@ class RunActivity : AppCompatActivity(){
         val second = (time % 6000) / 100
         val minute = time / 6000
 
-        runData[rvPos].millisec = "." + if (millisec < 10) "0${millisec}" else "${millisec}"
+        runData[rvPos].millisec = "." + if (millisec < 10) "0${millisec}" else "$millisec"
         runData[rvPos].sec = ":" + if (second < 10) "0${second}" else "$second"
         runData[rvPos].min = "$minute"
         runData[rvPos].isDone = true
@@ -226,7 +222,7 @@ class RunActivity : AppCompatActivity(){
 
         //move current run to the middle
         binding.rv.scrollToPosition(rvPos)
-//        if (rvPos >= 2) binding.rv.scrollToPosition(rvPos)
+
     }
 
 
@@ -236,6 +232,5 @@ class RunActivity : AppCompatActivity(){
         startActivity(intent)
         finish()
     }
-
 
 }

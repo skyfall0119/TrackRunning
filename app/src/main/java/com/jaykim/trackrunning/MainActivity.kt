@@ -16,6 +16,9 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.navigation.NavigationView
 import com.jaykim.trackrunning.databinding.ActivityMainBinding
 import java.util.Locale
@@ -36,11 +39,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         initNav(savedInstanceState)
+        initAd()
+
 
 
 
     }
 
+    private fun initAd() {
+        MobileAds.initialize(this) {}
+        val mAdView = findViewById<AdView>(R.id.ad_banner)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+
+
+    }
 
 
     private fun initNav(savedInstanceState: Bundle?) {
@@ -118,15 +131,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             drawerLayout.closeDrawer(GravityCompat.START)
         }
         else {
-            if (isBackPressedOnce + 1500 > System.currentTimeMillis()){
-                onBackPressedDispatcher.onBackPressed()
-                finish()
-            }
 
+            if (supportFragmentManager.backStackEntryCount == 0){
+                if (isBackPressedOnce + 1500 > System.currentTimeMillis()){
+                    onBackPressedDispatcher.onBackPressed()
+                    finish()
+                }
+                else{
+                    Toast.makeText(applicationContext, getString(R.string.main_exit), Toast.LENGTH_SHORT).show()
+                }
+            }
             else{
-                Toast.makeText(applicationContext, getString(R.string.main_exit), Toast.LENGTH_SHORT).show()
-
+                onBackPressedDispatcher.onBackPressed()
             }
+
+
             isBackPressedOnce = System.currentTimeMillis()
 
 

@@ -1,27 +1,20 @@
 package com.jaykim.trackrunning
 
 import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.getSystemService
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.jaykim.trackrunning.databinding.FragmentPresetAddBinding
-import com.jaykim.trackrunning.databinding.RvItemPresetAddBinding
 import com.jaykim.trackrunning.db.AppDatabase
 import com.jaykim.trackrunning.db.PresetDao
 import com.jaykim.trackrunning.db.PresetEntity
@@ -41,7 +34,6 @@ class PresetAddFragment : Fragment() {
 
     private var curPos = 0
     private lateinit var curTitle : String
-    private lateinit var imm : InputMethodManager
     private val npItemDist = Helper.qsDist
     private val npItemRest = Helper.qsRest
 
@@ -136,7 +128,7 @@ class PresetAddFragment : Fragment() {
                     recyclerView: RecyclerView,
                     viewHolder: RecyclerView.ViewHolder
                 ) {
-                    viewHolder?.itemView?.alpha = 1.0f
+                    viewHolder.itemView?.alpha = 1.0f
                     super.clearView(recyclerView, viewHolder)
                 }
 
@@ -173,7 +165,8 @@ class PresetAddFragment : Fragment() {
         npAddDist.maxValue = npItemDist.size-1
         npAddDist.displayedValues = npItemDist
         npAddDist.wrapSelectorWheel = false
-        npAddDist.textSize = 100f
+        npAddDist.textSize = 60f
+        npAddDist
         npAddDist.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         npAddDist.isVerticalFadingEdgeEnabled = true
 
@@ -182,7 +175,7 @@ class PresetAddFragment : Fragment() {
         npAddRest.maxValue = npItemRest.size-1
         npAddRest.displayedValues = npItemRest
         npAddRest.wrapSelectorWheel = false
-        npAddRest.textSize = 100f
+        npAddRest.textSize = 60f
         npAddRest.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
 
 

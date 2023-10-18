@@ -39,6 +39,13 @@
                 android:value="true" />
         </service>
 
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1203702208636745~5235234591"/>
+
+
+
     </application>
 
 

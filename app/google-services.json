@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "897547018154",
+    "project_id": "trackrunning-a70b5",
+    "storage_bucket": "trackrunning-a70b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:897547018154:android:92a9c0e24fe0d94d9c15d3",
+        "android_client_info": {
+          "package_name": "com.jaykim.trackrunning"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAI9AqAreLQI6rXXALCObI4SEMW_BKQ7s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

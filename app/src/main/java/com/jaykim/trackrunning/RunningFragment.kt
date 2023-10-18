@@ -105,7 +105,7 @@ class RunningFragment : Fragment() {
         npDistance.maxValue = npItemDist.size-1
         npDistance.displayedValues = npItemDist
         npDistance.wrapSelectorWheel = false
-        npDistance.textSize = 100f
+        npDistance.textSize = 70f
         npDistance.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         npDistance.isVerticalFadingEdgeEnabled = true
 
@@ -114,7 +114,7 @@ class RunningFragment : Fragment() {
         npLaps.minValue = 1
         npLaps.maxValue = 15
         npLaps.wrapSelectorWheel = false
-        npLaps.textSize = 100f
+        npLaps.textSize = 70f
         npLaps.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
 
         //numberpicker rest items
@@ -122,7 +122,7 @@ class RunningFragment : Fragment() {
         npRest.maxValue = npItemRest.size-1
         npRest.displayedValues = npItemRest
         npRest.wrapSelectorWheel = false
-        npRest.textSize = 100f
+        npRest.textSize = 70f
         npRest.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
 
     }
