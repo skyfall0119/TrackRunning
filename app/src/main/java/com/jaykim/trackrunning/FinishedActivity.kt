@@ -1,6 +1,7 @@
 package com.jaykim.trackrunning
 
 
+
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,14 +11,11 @@ import com.jaykim.trackrunning.databinding.ActivityFinishedBinding
 import com.jaykim.trackrunning.db.AppDatabase
 import com.jaykim.trackrunning.db.RunsDao
 import com.jaykim.trackrunning.db.RunsEntity
-import java.time.DayOfWeek
 
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.util.Calendar
-import java.util.Date
-import kotlin.concurrent.thread
+
 
 
 // shows the finished screen after RunActivity.
@@ -37,7 +35,7 @@ class FinishedActivity : AppCompatActivity() {
     private lateinit var curTime : String
     private lateinit var totalTime : String
     private lateinit var totalDist : String
-    private lateinit var curDay : DayOfWeek
+    private lateinit var curDay : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,13 +72,25 @@ class FinishedActivity : AppCompatActivity() {
         }
 
         curDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yy/MM/dd"))
+//        curDay = LocalDate.now().format(DateTimeFormatter.ofPattern("EEEE", resources.configuration.locale))
         curTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
         totalTime = Helper.getTotalTime(runData)
         totalDist = Helper.getTotalDist(runData)
 
 
-        //TODO
-        curDay = LocalDate.now().dayOfWeek
+
+        curDay = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            LocalDate.now().format(DateTimeFormatter
+                .ofPattern("EEEE", resources.configuration.locales[0]))
+
+         else
+            @Suppress("DEPRECATION")
+            LocalDate.now().format(DateTimeFormatter
+                .ofPattern("EEEE", resources.configuration.locale))
+
+
+
+
 
     }
 
@@ -128,7 +138,7 @@ class FinishedActivity : AppCompatActivity() {
                 sum += e
                 if (e < fastest ) fastest = e
             }
-            var avg = sum / sortData[key]!!.size
+            val avg = sum / sortData[key]!!.size
             runDataMap[key] = arrayOf(Helper.intTimeToStr(fastest),Helper.intTimeToStr(avg))
         }
     }

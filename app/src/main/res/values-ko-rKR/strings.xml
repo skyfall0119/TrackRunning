@@ -4,11 +4,17 @@
     <string name="open_nav">네비게이션 열기</string>
     <string name="close_nav">네비게이션 닫기</string>
 
+    <string name="main_exit">뒤로가기를 한번 더 누르시면 종료됩니다</string>
     <string name="menu_activities">활동</string>
     <string name="menu_running">달리기</string>
     <string name="menu_setting">설정</string>
     <string name="menu_preset">달리기 프리셋</string>
-    <string name="main_exit">뒤로가기를 한번 더 누르시면 종료됩니다</string>
+    <string name="menu_help">도움말</string>
+    <string name="help_email">jaykim.coding@gmail.com</string>
+    <string name="help_inquiry">문의사항은 이메일로 보내주세요</string>
+    <string name="menu_preset_exp"> 여러분만의 달리기 루틴을 만들어보세요.  \n달리기 거리와 휴식시간을 추가할수 있습니다.\n추가된 아이템을 왼쪽으로 밀어서 삭제할수 있습니다.\n길게 눌러서 아이템을 이동할수 있습니다.</string>
+    <string name="help_running_exp">"빠른시작으로 간단한 반복런닝을 쉽게 시작할수 있습니다. \n더 체계적인 달리기 루틴을 원하시면 여러분만의 프리셋을 직접 만들어보세요."</string>
+    <string name="menu_activities_exp">이전 달리기 기록들을 확인해보세요.\n제일 빠른시간 및 평균시간은 원하시는 거리를 눌러서 확인할수 있습니다.</string>
 
     <string name="running_radio_qs">빠른 시작</string>
     <string name="running_radio_pre">프리셋</string>

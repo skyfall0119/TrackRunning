@@ -83,6 +83,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 replaceFragment(SettingFragment())
                 supportActionBar!!.setTitle(R.string.menu_setting)
             }
+
+            R.id.nav_help->{
+                replaceFragment(HelpFragment())
+                supportActionBar!!.setTitle(R.string.menu_help)
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
