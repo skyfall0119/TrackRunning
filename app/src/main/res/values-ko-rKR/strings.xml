@@ -15,6 +15,7 @@
     <string name="menu_preset_exp"> 여러분만의 달리기 루틴을 만들어보세요. 달리기 거리와 휴식시간을 추가할수 있습니다.\n추가된 아이템을 왼쪽으로 밀어서 삭제할수 있습니다.\n길게 눌러서 아이템을 이동할수 있습니다.</string>
     <string name="help_running_exp">"빠른시작으로 간단한 반복런닝을 쉽게 시작할수 있습니다. \n더 체계적인 달리기 루틴을 원하시면 여러분만의 프리셋을 직접 만들어보세요. 만들어진 프리셋을 길게 누르면 런닝루틴을 볼수 있습니다."</string>
     <string name="menu_activities_exp">이전 달리기 기록들을 확인해보세요.\n제일 빠른시간 및 평균시간은 원하시는 거리를 눌러서 확인할수 있습니다.</string>
+    <string name="setting_language">기본</string>
 
     <string name="running_radio_qs">빠른 시작</string>
     <string name="running_radio_pre">프리셋</string>
@@ -22,6 +23,7 @@
     <string name="running_laps">회</string>
     <string name="running_sec">초</string>
     <string name="running_rest">휴식</string>
+    <string name="running_unselected">프리셋을 선택해주세요</string>
 
     <string name="run_btn_start">시작</string>
     <string name="run_btn_record">기록</string>
@@ -34,6 +36,7 @@
     <string name="finished_average">평균 시간</string>
     <string name="finished_totaltime">총 운동 시간</string>
     <string name="finished_totaldist">총 운동 거리</string>
+    <string name="finished_title_run">런</string>
 
     <string name="activity_back">뒤로</string>
     <string name="activity_delete">삭제</string>
@@ -54,14 +57,14 @@
     <string name="preset_add_break">휴식</string>
     <string name="preset_add_hint">프리셋 제목\n</string>
     <string name="preset_add_navTitle">새 프리셋</string>
-    <string name="preset_add_noItem">항목을 추가하세요</string>
+    <string name="preset_add_noItem">항목을 추가하세요. 달리기 사이에 휴식이 있어야 합니다.</string>
     <string name="preset_add_defaultTitle">나의 프리셋</string>
     <string name="preset_add_deleted">삭제되었습니다</string>
     <string name="preset_add_add">추가</string>
     <string name="pref_language">언어</string>
 
-    <string name="finished_title_run">런</string>
-    <string name="running_unselected">프리셋을 선택해주세요</string>
+
+
 
 
 

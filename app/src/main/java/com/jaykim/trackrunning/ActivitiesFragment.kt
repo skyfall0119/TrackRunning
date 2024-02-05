@@ -74,10 +74,11 @@ class ActivitiesFragment : Fragment() {
                     val singleFrag = ActivityFragment()
                     singleFrag.arguments = bundle
                     val transaction = requireActivity().supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.fragment_container,singleFrag)
-                    transaction.addToBackStack(null)
-                    transaction.commit()
-
+                    transaction.apply {
+                        replace(R.id.fragment_container,singleFrag)
+                        addToBackStack(null)
+                        commit()
+                    }
                 }
             })
         }

@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
 
+        Locale.getDefault().displayLanguage
 
         initNav(savedInstanceState)
         initAd()
@@ -51,7 +52,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val mAdView = findViewById<AdView>(R.id.ad_banner)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
-
 
     }
 
@@ -145,12 +145,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onBackPressedDispatcher.onBackPressed()
             }
 
-
             isBackPressedOnce = System.currentTimeMillis()
-
-
 
         }
     }
-
 }

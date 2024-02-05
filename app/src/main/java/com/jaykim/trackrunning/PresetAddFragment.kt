@@ -161,26 +161,25 @@ class PresetAddFragment : Fragment() {
         val npAddRest = binding.presetAddNprest
 
         //numberpicker  distance items
-        npAddDist.minValue = 0
-        npAddDist.maxValue = npItemDist.size-1
-        npAddDist.displayedValues = npItemDist
-        npAddDist.wrapSelectorWheel = false
-        npAddDist.textSize = 60f
-        npAddDist
-        npAddDist.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-        npAddDist.isVerticalFadingEdgeEnabled = true
+        npAddDist.apply {
+            minValue = 0
+            maxValue = npItemDist.size-1
+            displayedValues = npItemDist
+            wrapSelectorWheel = false
+            textSize = 60f
+            descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+            isVerticalFadingEdgeEnabled = true
+        }
 
         //numberpicker rest items
-        npAddRest.minValue = 0
-        npAddRest.maxValue = npItemRest.size-1
-        npAddRest.displayedValues = npItemRest
-        npAddRest.wrapSelectorWheel = false
-        npAddRest.textSize = 60f
-        npAddRest.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-
-
-
-
+        npAddRest.apply {
+            minValue = 0
+            maxValue = npItemRest.size-1
+            displayedValues = npItemRest
+            wrapSelectorWheel = false
+            textSize = 60f
+            descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        }
 
         //dist+ btn
         binding.presetAddBtnDist.setOnClickListener {
@@ -198,23 +197,29 @@ class PresetAddFragment : Fragment() {
         //Done btn
         binding.presetAddDone.setOnClickListener {
 
+            // if theres no break between runs,
+            var inOrder = true
+            var isR = runData[0].isRest
+            for (i in 1..< runData.size){
+                if (runData[i].isRest == isR) inOrder = false
+                isR = runData[i].isRest
+            }
+
             //if no items added, toast a message.
-            if (adapter.itemCount == 0) {
+            if (adapter.itemCount == 0 || !inOrder) {
                 Toast.makeText(requireActivity(),
                     getString(R.string.preset_add_noItem),
                     Toast.LENGTH_SHORT).show()
 
-            } else { //if no title entered, add default title. add/update the list. back to preset
+            }
+            else { //if no title entered, add default title. add/update the list. back to preset
                 thread{
                     var title = binding.presetAddEnterTitle.text.toString()
                     if (title == "") title = getString(R.string.preset_add_defaultTitle)
 
-
-
                     //if new, add new Entity. if existing, update the previous.
                     if (curPos == -1)
                         presetDao.insertPreset(PresetEntity(null,title,runData))
-
                     else {
                         presetEntity.title = title
                         presetDao.updatePreset(presetEntity)

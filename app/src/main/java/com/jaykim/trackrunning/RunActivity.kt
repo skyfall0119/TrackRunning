@@ -7,6 +7,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaykim.trackrunning.databinding.ActivityRunBinding
 import java.util.Timer
@@ -31,7 +32,8 @@ class RunActivity : AppCompatActivity(){
 
         binding = ActivityRunBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        // keep screen on
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         initRecycler()
         initBtn()
@@ -227,6 +229,7 @@ class RunActivity : AppCompatActivity(){
 
 
     private fun finishWorkout(){
+        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         val intent = Intent(this,FinishedActivity::class.java)
         intent.putExtra("runData", runData)
         startActivity(intent)

@@ -14,6 +14,7 @@
     <string name="menu_preset_exp">Customize your own run routine. \nAdd run distance and rest time.\nDelete the item by swapping to left.\nDrag and move the item by holding.</string>
     <string name="help_running_exp">"You can easily run simple repeats with Quick Start. \nFor more complex run routine, create your own preset.Long click the preset you created to see the summary of run routine."</string>
     <string name="menu_activities_exp">Check your past run activities.\nTo see the fastest and average time, select the distance.</string>
+    <string name="setting_language">default</string>
 
     <string name="running_radio_qs">Quick Start</string>
     <string name="running_radio_pre">Preset</string>
@@ -21,6 +22,7 @@
     <string name="running_laps">Laps</string>
     <string name="running_sec">Sec</string>
     <string name="running_rest">Rest</string>
+    <string name="running_unselected">Please select a preset</string>
 
     <string name="run_btn_start">START</string>
     <string name="run_btn_record">RECORD</string>
@@ -33,6 +35,7 @@
     <string name="finished_average">Average Lap Time</string>
     <string name="finished_totaltime">Total Workout Time</string>
     <string name="finished_totaldist">Total Distance</string>
+    <string name="finished_title_run">RUN</string>
 
     <string name="activity_back">Back</string>
     <string name="activity_delete">Delete</string>
@@ -54,14 +57,14 @@
     <string name="preset_add_break">Break</string>
     <string name="preset_add_hint">Enter Preset title\n</string>
     <string name="preset_add_navTitle">New Preset</string>
-    <string name="preset_add_noItem">Please add an item</string>
+    <string name="preset_add_noItem">Please add an item. Add break between runs</string>
     <string name="preset_add_defaultTitle">My Custom Run</string>
     <string name="preset_add_deleted">deleted</string>
     <string name="preset_add_add">Add</string>
     <string name="pref_language">Language</string>
 
-    <string name="finished_title_run">RUN</string>
-    <string name="running_unselected">Please select a preset</string>
+
+
 
 
 

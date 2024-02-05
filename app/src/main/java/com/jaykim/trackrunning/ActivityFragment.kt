@@ -29,7 +29,7 @@ class ActivityFragment : Fragment() {
     private lateinit var currentRun : RunsEntity
     private lateinit var adapter : FinishedActivityRvAdapter
     private var runDataMap = mutableMapOf<String, Array<String>>()
-
+    private var selectedPos =0
 
 
     override fun onCreateView(
@@ -98,21 +98,25 @@ class ActivityFragment : Fragment() {
         //recyclerView. update the UI
         activity?.runOnUiThread {
             adapter = FinishedActivityRvAdapter(currentRun.singleWorkout)
-            binding.activityRv.adapter = adapter
-            binding.activityRv.layoutManager = LinearLayoutManager(requireActivity())
+            binding.apply{
+                activityRv.adapter = adapter
+                activityRv.layoutManager = LinearLayoutManager(requireActivity())
+                activityDate.text = currentRun.date
+                activityTitle.text = currentRun.title
+                tvTotalTime2.text = currentRun.totalTime
+                tvTotalDist2.text = currentRun.totalDist
+            }
 
-
-            binding.activityDate.text = currentRun.date
-            binding.activityTitle.text = currentRun.title
-            binding.tvTotalTime2.text = currentRun.totalTime
-            binding.tvTotalDist2.text = currentRun.totalDist
 
 
             //fastest, average time onclicklistener
             adapter.setOnItemClickListener(object : ActivitiesRvAdapter.onItemClickListener{
                 override fun onItemClick(view: View, position: Int) {
                     adapter.selectedPos = position
-                    adapter.notifyDataSetChanged()
+//                    adapter.notifyDataSetChanged()
+                    adapter.notifyItemChanged(selectedPos)
+                    adapter.notifyItemChanged(position)
+                    selectedPos = position
 
                     binding.tvFastestLaptime2.text = runDataMap[currentRun.singleWorkout[position].distance]?.get(0)
                     binding.tvAvgLaptime2.text = runDataMap[currentRun.singleWorkout[position].distance]?.get(1)
