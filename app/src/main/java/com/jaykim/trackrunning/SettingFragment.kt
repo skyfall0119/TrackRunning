@@ -28,7 +28,7 @@ class SettingFragment : PreferenceFragmentCompat() {
 
                         "한국어" ->
                             AppCompatDelegate.setApplicationLocales(
-                                LocaleListCompat.forLanguageTags("ko-rKR")
+                                LocaleListCompat.forLanguageTags("ko")
                             )
 
 
