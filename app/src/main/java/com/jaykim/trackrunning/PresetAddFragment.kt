@@ -72,20 +72,24 @@ class PresetAddFragment : Fragment() {
             val args = this.arguments
             curPos = args?.getInt("position")!!
 
+            val allPresets = presetDao.getAllPreset()
 
             // if adding new, initialize empty runData
             if (curPos == -1) {
                 runData = ArrayList()
                 curTitle = getString(R.string.preset_add_navTitle)
-            } else {
-                //if accessing to already created preset, get preset from the position
-                presetEntity = presetDao.getAllPreset()[curPos]
+            } else if (allPresets.isNotEmpty() && curPos < allPresets.size) {
+                presetEntity = allPresets[curPos]
                 runData = presetEntity.SingleWorkout
                 binding.presetAddEnterTitle.setText(presetEntity.title)
-                // show delete button on the appbar only when previous preset is opened
                 curTitle = presetEntity.title
                 setHasOptionsMenu(true)
-
+            } else {
+                // Handle the case where curPos is out of bounds or the list is empty
+                activity?.runOnUiThread {
+                    Toast.makeText(requireContext(), "Error: No preset found.", Toast.LENGTH_SHORT).show()
+                    backToPreset()
+                }
             }
 
             initView()
@@ -128,7 +132,7 @@ class PresetAddFragment : Fragment() {
                     recyclerView: RecyclerView,
                     viewHolder: RecyclerView.ViewHolder
                 ) {
-                    viewHolder.itemView?.alpha = 1.0f
+                    viewHolder.itemView.alpha = 1.0f
                     super.clearView(recyclerView, viewHolder)
                 }
 
@@ -198,35 +202,55 @@ class PresetAddFragment : Fragment() {
         binding.presetAddDone.setOnClickListener {
 
             // if theres no break between runs,
-            var inOrder = true
-            var isR = runData[0].isRest
-            for (i in 1..< runData.size){
-                if (runData[i].isRest == isR) inOrder = false
-                isR = runData[i].isRest
-            }
-
-            //if no items added, toast a message.
-            if (adapter.itemCount == 0 || !inOrder) {
+            if (adapter.itemCount == 0) {
                 Toast.makeText(requireActivity(),
                     getString(R.string.preset_add_noItem),
                     Toast.LENGTH_SHORT).show()
-
+                return@setOnClickListener
             }
-            else { //if no title entered, add default title. add/update the list. back to preset
-                thread{
-                    var title = binding.presetAddEnterTitle.text.toString()
-                    if (title == "") title = getString(R.string.preset_add_defaultTitle)
+            // Check if all items are "rest" (no "run" in the list)
+            val allRest = runData.all { it.isRest }
+            if (allRest) {
+                Toast.makeText(requireActivity(),
+                    getString(R.string.preset_addlist_norun),
+                    Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-                    //if new, add new Entity. if existing, update the previous.
-                    if (curPos == -1)
-                        presetDao.insertPreset(PresetEntity(null,title,runData))
-                    else {
-                        presetEntity.title = title
-                        presetDao.updatePreset(presetEntity)
-                    }
+            // Check if there are consecutive runs/rests
+            var inOrder = true
+            var isR = runData[0].isRest
+            for (i in 1 until runData.size) {
+                if (runData[i].isRest == isR) {
+                    inOrder = false
+                    break // Break early if we find two consecutive runs/rests
                 }
-                backToPreset()
+                isR = runData[i].isRest
             }
+
+            if (!inOrder) {
+                Toast.makeText(requireActivity(),
+                    getString(R.string.preset_addlist_break),
+                    Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+
+             //if no title entered, add default title. add/update the list. back to preset
+            thread{
+                var title = binding.presetAddEnterTitle.text.toString()
+                if (title == "") title = getString(R.string.preset_add_defaultTitle)
+
+                //if new, add new Entity. if existing, update the previous.
+                if (curPos == -1)
+                    presetDao.insertPreset(PresetEntity(null,title,runData))
+                else {
+                    presetEntity.title = title
+                    presetDao.updatePreset(presetEntity)
+                }
+            }
+            backToPreset()
+
         }
         //back btn
         binding.presetAddBack.setOnClickListener {

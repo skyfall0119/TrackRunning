@@ -58,7 +58,9 @@
     <string name="preset_add_break">Break</string>
     <string name="preset_add_hint">Enter Preset title\n</string>
     <string name="preset_add_navTitle">New Preset</string>
-    <string name="preset_add_noItem">Please add an item. Add break between runs</string>
+    <string name="preset_add_noItem">Please add an item.</string>
+    <string name="preset_addlist_norun">Add runs</string>
+    <string name="preset_addlist_break">Add break between runs</string>
     <string name="preset_add_defaultTitle">My Custom Run</string>
     <string name="preset_add_deleted">deleted</string>
     <string name="preset_add_add">Add</string>

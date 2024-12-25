@@ -57,7 +57,9 @@
     <string name="preset_add_break">휴식</string>
     <string name="preset_add_hint">프리셋 제목\n</string>
     <string name="preset_add_navTitle">새 프리셋</string>
-    <string name="preset_add_noItem">항목을 추가하세요. 달리기 사이에 휴식이 있어야 합니다.</string>
+    <string name="preset_add_noItem">항목을 추가하세요. </string>
+    <string name="preset_addlist_norun">달리기를 추가해주세요.</string>
+    <string name="preset_addlist_break">달리기 사이에 휴식을 추가해주세요.</string>
     <string name="preset_add_defaultTitle">나의 프리셋</string>
     <string name="preset_add_deleted">삭제되었습니다</string>
     <string name="preset_add_add">추가</string>
