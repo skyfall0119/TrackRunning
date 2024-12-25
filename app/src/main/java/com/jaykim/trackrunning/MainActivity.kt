@@ -134,19 +134,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             if (supportFragmentManager.backStackEntryCount == 0){
                 if (isBackPressedOnce + 1500 > System.currentTimeMillis()){
-                    onBackPressedDispatcher.onBackPressed()
                     finish()
                 }
                 else{
                     Toast.makeText(applicationContext, getString(R.string.main_exit), Toast.LENGTH_SHORT).show()
+                    isBackPressedOnce = System.currentTimeMillis()
                 }
             }
             else{
-                onBackPressedDispatcher.onBackPressed()
+//                onBackPressedDispatcher.onBackPressed()
+                super.onBackPressed()
+
             }
-
-            isBackPressedOnce = System.currentTimeMillis()
-
         }
     }
 }

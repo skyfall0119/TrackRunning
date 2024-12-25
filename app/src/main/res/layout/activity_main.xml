@@ -36,6 +36,7 @@
             app:adSize="BANNER"
             app:adUnitId="ca-app-pub-3940256099942544/9214589741"
             />
+<!--    bannertest app:adUnitId="ca-app-pub-3940256099942544/9214589741"-->
 
 
     </LinearLayout>
