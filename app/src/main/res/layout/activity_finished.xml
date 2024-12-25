@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
 
         android:text="@string/finished_completed"
-        android:textSize="35sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/finished_date"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="23/08/29"
-        android:textSize="30sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/finished_title"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/finished_completed"
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="morning Run"
-        android:textSize="30sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@id/guideline_finished1"
         app:layout_constraintStart_toStartOf="@id/finished_date"
         app:layout_constraintTop_toBottomOf="@id/finished_date"
@@ -93,9 +93,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/guideline_finished4"
         app:layout_constraintTop_toBottomOf="@id/guideline_finished2"
-        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_totalDist1"
         android:text="@string/finished_totaltime"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_totalTime2"
@@ -104,9 +104,9 @@
         app:layout_constraintLeft_toLeftOf="@id/guideline_finished4"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline_finished2"
-        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_totalDist2"
         android:text="00:00:00"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_totalDist1"
@@ -115,9 +115,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/guideline_finished4"
         app:layout_constraintTop_toBottomOf="@id/tv_totalTime1"
-        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_fastest_laptime1"
         android:text="@string/finished_totaldist"
-        android:textSize="20sp"
+        android:textSize="15sp"
         />
 
     <TextView
@@ -127,9 +127,9 @@
         app:layout_constraintLeft_toLeftOf="@id/guideline_finished4"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_totalTime2"
-        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_fastest_laptime2"
         android:text="00m"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
 
     <TextView
@@ -138,10 +138,11 @@
         android:layout_height="wrap_content"
         android:text="@string/finished_fastest"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="20dp"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintRight_toRightOf="@id/guideline_finished4"
-        app:layout_constraintTop_toBottomOf="@id/tv_totalDist1" />
+        app:layout_constraintTop_toBottomOf="@id/tv_totalDist1"
+        app:layout_constraintBottom_toTopOf="@id/tv_avg_laptime1"
+        />
 
     <TextView
         android:id="@+id/tv_fastest_laptime2"
@@ -150,17 +151,16 @@
         app:layout_constraintLeft_toLeftOf="@id/guideline_finished4"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_totalDist2"
-        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_avg_laptime2"
         android:text="00:00:00"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_avg_laptime1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="@string/finished_average"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline_finished3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/guideline_finished4"
@@ -170,9 +170,8 @@
         android:id="@+id/tv_avg_laptime2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="00:00:00"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline_finished3"
         app:layout_constraintLeft_toLeftOf="@id/guideline_finished4"
         app:layout_constraintRight_toRightOf="parent"

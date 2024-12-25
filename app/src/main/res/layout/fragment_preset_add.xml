@@ -13,14 +13,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.13" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.5" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
@@ -145,10 +145,10 @@
 
     <Button
         android:id="@+id/preset_add_back"
-        android:layout_width="100sp"
-        android:layout_height="80dp"
+        android:layout_width="80sp"
+        android:layout_height="50dp"
         android:text="@string/preset_add_back"
-        android:textSize="20sp"
+        android:textSize="12sp"
         app:layout_constraintTop_toTopOf="@id/guideline3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -157,10 +157,10 @@
 
     <Button
         android:id="@+id/preset_add_done"
-        android:layout_width="100sp"
-        android:layout_height="80dp"
+        android:layout_width="80sp"
+        android:layout_height="50dp"
         android:text="@string/preset_add_done"
-        android:textSize="20sp"
+        android:textSize="12sp"
         app:layout_constraintTop_toTopOf="@id/guideline3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/preset_add_back"

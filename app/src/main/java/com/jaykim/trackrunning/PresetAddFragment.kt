@@ -43,7 +43,7 @@ class PresetAddFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
         _binding = FragmentPresetAddBinding.inflate(inflater, container, false)
@@ -104,7 +104,7 @@ class PresetAddFragment : Fragment() {
 
             // swap / drag action config
             val swipeGesture = object : SwipeGesture(){
-                // longpressed to drag move
+                // long pressed to drag move
                 override fun onMove(
                     recyclerView: RecyclerView,
                     viewHolder: RecyclerView.ViewHolder,
@@ -164,7 +164,7 @@ class PresetAddFragment : Fragment() {
         val npAddDist = binding.presetAddNpdist
         val npAddRest = binding.presetAddNprest
 
-        //numberpicker  distance items
+        //number picker  distance items
         npAddDist.apply {
             minValue = 0
             maxValue = npItemDist.size-1
@@ -175,7 +175,7 @@ class PresetAddFragment : Fragment() {
             isVerticalFadingEdgeEnabled = true
         }
 
-        //numberpicker rest items
+        //number picker rest items
         npAddRest.apply {
             minValue = 0
             maxValue = npItemRest.size-1
@@ -235,7 +235,6 @@ class PresetAddFragment : Fragment() {
                 return@setOnClickListener
             }
 
-
              //if no title entered, add default title. add/update the list. back to preset
             thread{
                 var title = binding.presetAddEnterTitle.text.toString()
@@ -278,7 +277,7 @@ class PresetAddFragment : Fragment() {
                 val builder = AlertDialog.Builder(requireActivity())
                 builder.setMessage(getString(R.string.activity_deleteDialog))
                     .setCancelable(true)
-                    .setPositiveButton(getString(R.string.activity_delete_yes)) { dialog, id->
+                    .setPositiveButton(getString(R.string.activity_delete_yes)) { _, _->
                         //delete current preset
                         Thread{
                             presetDao.deletePreset(presetEntity)
@@ -290,7 +289,7 @@ class PresetAddFragment : Fragment() {
                         backToPreset()
                     }
 
-                    .setNegativeButton(getString(R.string.activity_delete_no)) {dialog, id->
+                    .setNegativeButton(getString(R.string.activity_delete_no)) {dialog, _->
                         dialog.dismiss()
                     }
                     .create().show()

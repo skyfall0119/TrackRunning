@@ -38,14 +38,14 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/preset_fab_add"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/fab_add"
-        app:fabCustomSize="80dp"
+        app:fabCustomSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
         />
 
 

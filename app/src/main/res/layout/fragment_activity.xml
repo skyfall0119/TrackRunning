@@ -11,23 +11,24 @@
         android:id="@+id/activity_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="08/02/23"
         android:textSize="20sp"
         android:layout_marginStart="30dp"
-        app:layout_constraintBottom_toTopOf="@id/activity_title"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_activity1"
+        />
 
     <TextView
         android:id="@+id/activity_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
 
         android:text="Monday"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/activity_date"
-        app:layout_constraintTop_toBottomOf="@id/activity_date"
+        app:layout_constraintStart_toEndOf="@id/activity_date"
+        app:layout_constraintTop_toTopOf="@id/activity_date"
         />
 
 
@@ -36,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.13" />
+        app:layout_constraintGuide_percent="0.1" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -52,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.58" />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -60,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.83" />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -78,9 +79,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/guideline_activity4"
         app:layout_constraintTop_toBottomOf="@id/guideline_activity2"
-        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_totalDist1"
         android:text="@string/finished_totaltime"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_totalTime2"
@@ -89,9 +90,9 @@
         app:layout_constraintLeft_toLeftOf="@id/guideline_activity4"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline_activity2"
-        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_totalDist2"
         android:text="00:00:00"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_totalDist1"
@@ -100,9 +101,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/guideline_activity4"
         app:layout_constraintTop_toBottomOf="@id/tv_totalTime1"
-        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_fastest_laptime1"
         android:text="@string/finished_totaldist"
-        android:textSize="20sp"
+        android:textSize="15sp"
         />
 
     <TextView
@@ -112,9 +113,9 @@
         app:layout_constraintLeft_toLeftOf="@id/guideline_activity4"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_totalTime2"
-        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_fastest_laptime2"
         android:text="00m"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
 
     <TextView
@@ -123,10 +124,11 @@
         android:layout_height="wrap_content"
         android:text="@string/finished_fastest"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintRight_toRightOf="@id/guideline_activity4"
-        app:layout_constraintTop_toBottomOf="@id/tv_totalDist1" />
+        app:layout_constraintTop_toBottomOf="@id/tv_totalDist1"
+        app:layout_constraintBottom_toTopOf="@id/tv_avg_laptime1"
+        />
 
     <TextView
         android:id="@+id/tv_fastest_laptime2"
@@ -135,31 +137,32 @@
         app:layout_constraintLeft_toLeftOf="@id/guideline_activity4"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_totalDist2"
-        android:layout_marginTop="10dp"
         android:text="00:00:00"
-        android:textSize="20sp" />
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_avg_laptime2"
+        />
 
     <TextView
         android:id="@+id/tv_avg_laptime1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/finished_average"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_activity3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/guideline_activity4"
-        android:layout_marginTop="10dp"
-        android:text="@string/finished_average"
-        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/tv_fastest_laptime1" />
 
     <TextView
         android:id="@+id/tv_avg_laptime2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="00:00:00"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_activity3"
         app:layout_constraintLeft_toLeftOf="@id/guideline_activity4"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_fastest_laptime2"
-        android:layout_marginTop="10dp"
-        android:text="00:00:00"
-        android:textSize="20sp" />
+        app:layout_constraintTop_toBottomOf="@id/tv_fastest_laptime2" />
 
 
     <Button
@@ -169,6 +172,7 @@
         android:layout_marginVertical="10dp"
         android:text="@string/activity_back"
         android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline_activity3" />
