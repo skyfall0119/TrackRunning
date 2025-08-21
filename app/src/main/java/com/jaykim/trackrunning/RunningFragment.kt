@@ -84,7 +84,11 @@ class RunningFragment : Fragment() {
                     binding.tvRadioTitle.text = getString(R.string.running_radio_pre)
                     binding.frameQs.visibility = View.INVISIBLE
                     binding.runningRv.visibility = View.VISIBLE
-                    adapter.notifyDataSetChanged()
+
+                    if (::adapter.isInitialized) {
+                        adapter.notifyDataSetChanged()
+                    }
+
                 }
             }
 

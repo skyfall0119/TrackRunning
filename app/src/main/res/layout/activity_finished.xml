@@ -9,32 +9,32 @@
 
     <TextView
         android:id="@+id/finished_completed"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
 
         android:text="@string/finished_completed"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/finished_date"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.2"/>
 
     <TextView
         android:id="@+id/finished_date"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="23/08/29"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/finished_title"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/finished_completed"
         android:layout_marginLeft="30dp"
         />
 
     <TextView
         android:id="@+id/finished_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="morning Run"
         android:textSize="25sp"
@@ -90,8 +90,8 @@
         android:id="@+id/tv_totalTime1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/guideline_finished4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline_finished4"
         app:layout_constraintTop_toBottomOf="@id/guideline_finished2"
         app:layout_constraintBottom_toTopOf="@id/tv_totalDist1"
         android:text="@string/finished_totaltime"
@@ -101,8 +101,8 @@
         android:id="@+id/tv_totalTime2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/guideline_finished4"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_finished4"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline_finished2"
         app:layout_constraintBottom_toTopOf="@id/tv_totalDist2"
         android:text="00:00:00"
@@ -112,8 +112,8 @@
         android:id="@+id/tv_totalDist1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/guideline_finished4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline_finished4"
         app:layout_constraintTop_toBottomOf="@id/tv_totalTime1"
         app:layout_constraintBottom_toTopOf="@id/tv_fastest_laptime1"
         android:text="@string/finished_totaldist"
@@ -124,8 +124,8 @@
         android:id="@+id/tv_totalDist2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/guideline_finished4"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_finished4"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_totalTime2"
         app:layout_constraintBottom_toTopOf="@id/tv_fastest_laptime2"
         android:text="00m"
@@ -137,9 +137,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/finished_fastest"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:textSize="15sp"
-        app:layout_constraintRight_toRightOf="@id/guideline_finished4"
+        app:layout_constraintEnd_toEndOf="@id/guideline_finished4"
         app:layout_constraintTop_toBottomOf="@id/tv_totalDist1"
         app:layout_constraintBottom_toTopOf="@id/tv_avg_laptime1"
         />
@@ -148,8 +148,8 @@
         android:id="@+id/tv_fastest_laptime2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/guideline_finished4"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_finished4"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_totalDist2"
         app:layout_constraintBottom_toTopOf="@id/tv_avg_laptime2"
         android:text="00:00:00"
@@ -162,8 +162,8 @@
         android:text="@string/finished_average"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline_finished3"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/guideline_finished4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline_finished4"
         app:layout_constraintTop_toBottomOf="@id/tv_fastest_laptime1" />
 
     <TextView
@@ -173,8 +173,8 @@
         android:text="00:00:00"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline_finished3"
-        app:layout_constraintLeft_toLeftOf="@id/guideline_finished4"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_finished4"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_fastest_laptime2" />
 
 
@@ -188,8 +188,8 @@
         android:text="@string/finished_btn_back"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline_finished3" />
 
 
