@@ -4,32 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FinishedActivity">
-
+    tools:context=".FinishedActivity"
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/finished_completed"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:text="@string/finished_completed"
         android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/finished_date"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2"/>
+        app:layout_constraintVertical_bias="0.2"
+        android:layout_marginStart="14dp"/>
 
     <TextView
         android:id="@+id/finished_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="23/08/29"
-        android:textSize="25sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/finished_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/finished_completed"
-        android:layout_marginLeft="30dp"
+        android:layout_marginStart="14dp"
         />
 
     <TextView
@@ -37,28 +38,24 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="morning Run"
-        android:textSize="25sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@id/guideline_finished1"
         app:layout_constraintStart_toStartOf="@id/finished_date"
         app:layout_constraintTop_toBottomOf="@id/finished_date"
-
-
         />
-
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_finished1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
-
+        app:layout_constraintGuide_percent="0.22" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/finished_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="8dp"
         app:layout_constraintBottom_toTopOf="@id/guideline_finished2"
         app:layout_constraintTop_toBottomOf="@id/guideline_finished1" />
 
@@ -69,7 +66,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.65" />
 
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_finished3"
         android:layout_width="wrap_content"
@@ -77,14 +73,12 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.88" />
 
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_finished4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
-
 
     <TextView
         android:id="@+id/tv_totalTime1"
@@ -131,7 +125,6 @@
         android:text="00m"
         android:textSize="15sp" />
 
-
     <TextView
         android:id="@+id/tv_fastest_laptime1"
         android:layout_width="wrap_content"
@@ -177,13 +170,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_fastest_laptime2" />
 
-
-
-
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_finished_backtomenu"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginVertical="15dp"
         android:text="@string/finished_btn_back"
         android:textSize="15sp"
@@ -191,8 +181,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline_finished3" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

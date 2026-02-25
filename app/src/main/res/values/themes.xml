@@ -1,14 +1,38 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.TrackRunning" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-         <item name="colorPrimary">@color/blue</item>
-        <item name="android:statusBarColor">@color/blue</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorPrimaryContainer">#D7E2FF</item>
+        <item name="colorOnPrimaryContainer">#001B3F</item>
+
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+        <item name="colorSecondaryContainer">#FFDBC7</item>
+        <item name="colorOnSecondaryContainer">#311300</item>
+
+        <!-- Background and Surface -->
+        <item name="android:windowBackground">@color/background</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="colorSurfaceVariant">#E1E2EC</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
+
+        <!-- Status Bar -->
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <style name="Theme.TrackRunning" parent="Base.Theme.TrackRunning" />
 
+    <style name="ShapeAppearance.TrackRunning.Circle" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
 
-
+    <style name="ShapeAppearance.TrackRunning.Medium" parent="">
+        <item name="cornerSize">12dp</item>
+    </style>
 
 </resources>
