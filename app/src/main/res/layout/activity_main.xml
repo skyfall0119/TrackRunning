@@ -14,12 +14,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="?attr/actionBarSize"
             android:id="@+id/toolbar"
+            android:background="?attr/colorPrimary"
+            app:titleTextColor="?attr/colorOnPrimary"
             android:elevation="4dp"
-            android:background="@color/blue"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
 
@@ -29,6 +30,8 @@
             android:layout_weight="1"
             android:id="@+id/fragment_container"/>
 
+        <!-- Temporarily disabled Ad Banner -->
+        <!--
         <com.google.android.gms.ads.AdView
             android:id="@+id/ad_banner"
             android:layout_width="match_parent"
@@ -36,8 +39,14 @@
             app:adSize="BANNER"
             app:adUnitId="ca-app-pub-3940256099942544/9214589741"
             />
-<!--    bannertest app:adUnitId="ca-app-pub-3940256099942544/9214589741"-->
+        -->
 
+        <!-- Placeholder for Ad Banner -->
+        <View
+            android:id="@+id/ad_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?attr/colorSurfaceVariant" />
 
     </LinearLayout>
 
@@ -49,8 +58,5 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_menu"/>
-
-
-
 
 </androidx.drawerlayout.widget.DrawerLayout>
