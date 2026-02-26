@@ -14,8 +14,8 @@ android {
         applicationId "com.jaykim.trackrunning"
         minSdk 29
         targetSdk 35
-        versionCode 6
-        versionName "1.12"
+        versionCode 7
+        versionName "1.12.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
