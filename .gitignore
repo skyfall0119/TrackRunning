@@ -8,8 +8,12 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
-/build
 /captures
+/key
 .externalNativeBuild
 .cxx
 local.properties
+
+# App specific release folders
+/app/release/
+/app/debug/
