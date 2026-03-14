@@ -2,6 +2,7 @@ package com.jaykim.trackrunning
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,7 +43,7 @@ class RunningFragment : Fragment() {
         val view = binding.root
 
         initPresetView()
-        radioSet()
+        toggleSet()
         initPicker()
         initBtn()
 
@@ -66,34 +67,29 @@ class RunningFragment : Fragment() {
         }
     }
 
-    private fun radioSet() {
-        val radioGroup = binding.radiogroupRunning
-
-        radioGroup.setOnCheckedChangeListener { _, checkedId ->
-            when(checkedId){
-                R.id.radio_qs->{  // to quickstart frame
-                    isQs = true
-                    //if current is not quickstart, switch to quickstart frame
-                    binding.tvRadioTitle.text = getString(R.string.running_radio_qs)
-                    binding.frameQs.visibility = View.VISIBLE
-                    binding.runningRv.visibility = View.INVISIBLE
-                }
-
-                R.id.radio_preset->{ // to preset frame
-                    isQs = false
-                    binding.tvRadioTitle.text = getString(R.string.running_radio_pre)
-                    binding.frameQs.visibility = View.INVISIBLE
-                    binding.runningRv.visibility = View.VISIBLE
-
-                    if (::adapter.isInitialized) {
-                        adapter.notifyDataSetChanged()
+    private fun toggleSet() {
+        binding.toggleGroupRunning.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                when (checkedId) {
+                    R.id.btn_radio_qs -> {
+                        isQs = true
+                        binding.tvRadioTitle.text = getString(R.string.running_radio_qs)
+                        binding.frameQs.visibility = View.VISIBLE
+                        binding.runningRv.visibility = View.INVISIBLE
                     }
+                    R.id.btn_radio_preset -> {
+                        isQs = false
+                        binding.tvRadioTitle.text = getString(R.string.running_radio_pre)
+                        binding.frameQs.visibility = View.INVISIBLE
+                        binding.runningRv.visibility = View.VISIBLE
 
+                        if (::adapter.isInitialized) {
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
                 }
             }
-
         }
-
     }
 
     // quickstart 에 numberpicker 세팅. 빠르게 설정해서 런.
@@ -103,13 +99,20 @@ class RunningFragment : Fragment() {
         val npLaps = binding.qsNpLaps
         val npRest = binding.qsNpRest
 
+        // Convert 48sp to pixels for the text size
+        val textSizePx = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_SP,
+            48f,
+            resources.displayMetrics
+        )
+
 
         //numberpicker  distance items
         npDistance.minValue = 0
         npDistance.maxValue = npItemDist.size-1
         npDistance.displayedValues = npItemDist
         npDistance.wrapSelectorWheel = false
-        npDistance.textSize = 70f
+        npDistance.textSize = textSizePx
         npDistance.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         npDistance.isVerticalFadingEdgeEnabled = true
 
@@ -118,7 +121,7 @@ class RunningFragment : Fragment() {
         npLaps.minValue = 1
         npLaps.maxValue = 15
         npLaps.wrapSelectorWheel = false
-        npLaps.textSize = 70f
+        npLaps.textSize = textSizePx
         npLaps.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
 
         //numberpicker rest items
@@ -126,7 +129,7 @@ class RunningFragment : Fragment() {
         npRest.maxValue = npItemRest.size-1
         npRest.displayedValues = npItemRest
         npRest.wrapSelectorWheel = false
-        npRest.textSize = 70f
+        npRest.textSize = textSizePx
         npRest.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
 
     }
@@ -158,7 +161,7 @@ class RunningFragment : Fragment() {
                 else{ //if preset, send the runData from preset
                     // if selected, send selected runData.
                     // if not selected, prompt a message. "Please select"
-                    if (adapter.selectedPos != RecyclerView.NO_POSITION){
+                    if (::adapter.isInitialized && adapter.selectedPos != RecyclerView.NO_POSITION){
                         intent.putExtra("runData", presetList[adapter.selectedPos].SingleWorkout )
                         startActivity(intent)
                     } else {

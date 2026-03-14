@@ -4,71 +4,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".RunningFragment">
+    tools:context=".RunningFragment"
+    android:padding="16dp">
 
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggle_group_running"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:singleSelection="true"
+        app:selectionRequired="true"
+        app:checkedButton="@+id/btn_radio_qs"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp">
 
+        <Button
+            android:id="@+id/btn_radio_qs"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/running_radio_qs" />
+
+        <Button
+            android:id="@+id/btn_radio_preset"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/running_radio_pre" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <!-- Hidden RadioGroup to maintain compatibility with existing Fragment logic without massive code changes -->
     <RadioGroup
         android:id="@+id/radiogroup_running"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_radio_title"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="20dp">
-
-        <RadioButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/radio_qs"
-            android:text="@string/running_radio_qs"
-            android:textSize="20sp"
-            android:checked="true"
-            />
-
-        <RadioButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/radio_preset"
-            android:text="@string/running_radio_pre"
-            android:textSize="20sp"
-            />
+        app:layout_constraintStart_toStartOf="parent">
+        <RadioButton android:id="@+id/radio_qs" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <RadioButton android:id="@+id/radio_preset" android:layout_width="wrap_content" android:layout_height="wrap_content" />
     </RadioGroup>
-
-
-
-
 
     <TextView
         android:id="@+id/tv_radio_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/running_radio_qs"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/radiogroup_running"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/frame_running"
-        />
-
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/toggle_group_running"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <FrameLayout
         android:id="@+id/frame_running"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintTop_toBottomOf="@id/tv_radio_title"
-        >
-
+        app:layout_constraintBottom_toTopOf="@+id/btn_running_start">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/frame_qs"
@@ -76,126 +73,103 @@
             android:layout_height="match_parent"
             android:visibility="visible">
 
-
             <NumberPicker
                 android:id="@+id/qs_np_distance"
                 android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="5dp"
-                android:fadingEdge="vertical"
+                android:layout_height="120dp"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/qs_np_laps"
-                app:layout_constraintLeft_toLeftOf="@id/guideline_qs1"
-                app:layout_constraintRight_toRightOf="@id/guideline_qs2"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <NumberPicker
-                android:id="@+id/qs_np_laps"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="5dp"
-                app:layout_constraintBottom_toTopOf="@id/qs_np_rest"
-                app:layout_constraintLeft_toLeftOf="@id/guideline_qs1"
-                app:layout_constraintRight_toRightOf="@id/guideline_qs2"
-                app:layout_constraintTop_toBottomOf="@id/qs_np_distance" />
-
-            <NumberPicker
-                android:id="@+id/qs_np_rest"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="@id/guideline_qs1"
-                app:layout_constraintRight_toRightOf="@id/guideline_qs2"
-                app:layout_constraintTop_toBottomOf="@id/qs_np_laps" />
-
+                app:layout_constraintStart_toStartOf="@id/guideline_qs1"
+                app:layout_constraintEnd_toEndOf="@id/guideline_qs2"
+                app:layout_constraintVertical_chainStyle="spread" />
 
             <TextView
                 android:id="@+id/qs_meter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/running_meter"
-                android:textSize="30sp"
-                app:layout_constraintBottom_toBottomOf="@+id/qs_np_distance"
-                app:layout_constraintLeft_toRightOf="@+id/guideline_qs2"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/qs_np_distance" />
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@id/qs_np_distance"
+                app:layout_constraintTop_toTopOf="@id/qs_np_distance"
+                app:layout_constraintStart_toEndOf="@id/guideline_qs2"
+                android:layout_marginStart="8dp"/>
 
+            <NumberPicker
+                android:id="@+id/qs_np_laps"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                app:layout_constraintTop_toBottomOf="@id/qs_np_distance"
+                app:layout_constraintBottom_toTopOf="@id/qs_np_rest"
+                app:layout_constraintStart_toStartOf="@id/guideline_qs1"
+                app:layout_constraintEnd_toEndOf="@id/guideline_qs2" />
 
             <TextView
                 android:id="@+id/qs_laps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/running_laps"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="@id/qs_np_laps"
-                app:layout_constraintLeft_toRightOf="@id/guideline_qs2"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/qs_np_laps" />
+                app:layout_constraintTop_toTopOf="@id/qs_np_laps"
+                app:layout_constraintStart_toEndOf="@id/guideline_qs2"
+                android:layout_marginStart="8dp"/>
 
+            <NumberPicker
+                android:id="@+id/qs_np_rest"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                app:layout_constraintTop_toBottomOf="@id/qs_np_laps"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/guideline_qs1"
+                app:layout_constraintEnd_toEndOf="@id/guideline_qs2" />
 
             <TextView
                 android:id="@+id/qs_between"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/running_rest"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="@id/qs_np_rest"
-                app:layout_constraintLeft_toRightOf="@id/guideline_qs2"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/qs_np_rest" />
-
+                app:layout_constraintTop_toTopOf="@id/qs_np_rest"
+                app:layout_constraintStart_toEndOf="@id/guideline_qs2"
+                android:layout_marginStart="8dp"/>
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_qs1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.1" />
+                app:layout_constraintGuide_percent="0.25" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_qs2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.6" />
-
+                app:layout_constraintGuide_percent="0.65" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/running_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/running_rv"
-            android:visibility="invisible">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
+            android:visibility="gone"
+            tools:listitem="@layout/rv_item_run" />
 
     </FrameLayout>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.85"/>
-
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_running_start"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:text="@string/run_btn_start"
-        android:textSize="15sp"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:padding="0dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.TrackRunning.Circle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline6"
-        android:layout_marginBottom="20dp"
-        />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="32dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         Locale.getDefault().displayLanguage
 
         initNav(savedInstanceState)
-        initAd()
+        // initAd() // Temporarily disabled
 
 
 
@@ -48,11 +48,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun initAd() {
+        /*
         MobileAds.initialize(this) {}
         val mAdView = findViewById<AdView>(R.id.ad_banner)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
-
+        */
     }
 
 
