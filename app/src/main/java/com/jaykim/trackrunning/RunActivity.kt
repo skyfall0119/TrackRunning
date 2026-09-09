@@ -232,8 +232,24 @@ class RunActivity : AppCompatActivity(){
 
     private fun finishWorkout(){
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        timer?.cancel()
+        cdTimer?.cancel()
+
+        // if a run was actively in progress (not on break), record its partial time
+        // before finishing, matching the same recording path as a normal completion.
+        if (isRunning && !duringBreak) {
+            rvPosUpdate()
+        }
+
+        // only carry over laps that were actually completed (or the partial run just
+        // recorded above); an unfinished trailing lap/rest must not be saved as a
+        // fake "00:00.00" entry.
+        val cutoffIndex = runData.indexOfFirst { !it.isDone }
+        val finishedRunData = if (cutoffIndex == -1) ArrayList(runData)
+            else ArrayList(runData.subList(0, cutoffIndex))
+
         val intent = Intent(this,FinishedActivity::class.java)
-        intent.putExtra("runData", runData)
+        intent.putExtra("runData", finishedRunData)
         startActivity(intent)
         finish()
     }
