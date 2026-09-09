@@ -99,6 +99,8 @@ class RunActivity : AppCompatActivity(){
         //pause
         binding.btnStop.setOnClickListener {
             timer?.cancel()
+            cdTimer?.cancel()
+            duringBreak = false
             btnStart.text = getString(R.string.run_btn_start)
             isRunning = false
         }
@@ -234,6 +236,12 @@ class RunActivity : AppCompatActivity(){
         intent.putExtra("runData", runData)
         startActivity(intent)
         finish()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timer?.cancel()
+        cdTimer?.cancel()
     }
 
 }
