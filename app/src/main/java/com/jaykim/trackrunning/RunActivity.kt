@@ -24,6 +24,8 @@ class RunActivity : AppCompatActivity(){
     private var timer : Timer? = null
     private var cdTimer : CountDownTimer? = null
     private var time = 0
+    // remaining break time (ms), kept up to date every tick so it can be restored after rotation
+    private var remainingBreakMillis = 0L
 
 
 
@@ -35,10 +37,46 @@ class RunActivity : AppCompatActivity(){
         // keep screen on
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
-        initRecycler()
+        initRecycler(savedInstanceState)
         initBtn()
 
+        // restore an in-progress workout after a configuration change (e.g. rotation)
+        savedInstanceState?.let { restoreState(it) }
+    }
 
+    // preserve the in-progress workout across configuration changes (e.g. screen rotation).
+    // note: this does not survive full process death, only Activity recreation.
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable("runData", runData)
+        outState.putInt("rvPos", rvPos)
+        outState.putInt("time", time)
+        outState.putBoolean("isRunning", isRunning)
+        outState.putBoolean("duringBreak", duringBreak)
+        outState.putLong("remainingBreakMillis", remainingBreakMillis)
+    }
+
+    private fun restoreState(savedInstanceState: Bundle) {
+        rvPos = savedInstanceState.getInt("rvPos")
+        time = savedInstanceState.getInt("time")
+        isRunning = savedInstanceState.getBoolean("isRunning")
+        duringBreak = savedInstanceState.getBoolean("duringBreak")
+        remainingBreakMillis = savedInstanceState.getLong("remainingBreakMillis")
+
+        binding.tvTitle.text = if (duringBreak) getString(R.string.run_btn_break)
+            else "${ runData[rvPos].distance } m"
+
+        binding.btnStart.text = when {
+            duringBreak -> getString(R.string.run_btn_break)
+            isRunning -> getString(R.string.run_btn_record)
+            else -> getString(R.string.run_btn_start)
+        }
+
+        if (duringBreak) {
+            startCountdown(remainingBreakMillis.coerceAtLeast(10))
+        } else if (isRunning) {
+            runTimer()
+        }
     }
 
 
@@ -106,12 +144,14 @@ class RunActivity : AppCompatActivity(){
         }
     }
 
-    private fun initRecycler() {
+    private fun initRecycler(savedInstanceState: Bundle?) {
 
-        runData = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra("runData",ArrayList<SingleRun>()::class.java)!!
+        // after a rotation, resume from the saved runData (with progress) instead of
+        // re-reading the original intent, which would reset all progress made so far
+        runData = if (savedInstanceState != null) {
+            extractRunData(savedInstanceState)
         } else {
-            intent.getSerializableExtra("runData") as ArrayList<SingleRun>
+            extractRunData(intent)
         }
         runOnUiThread{
             adapter = RunActivityRvAdapter(runData)
@@ -121,6 +161,24 @@ class RunActivity : AppCompatActivity(){
 
         }
 
+    }
+
+    private fun extractRunData(intent: Intent): ArrayList<SingleRun> {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("runData",ArrayList<SingleRun>()::class.java)!!
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getSerializableExtra("runData") as ArrayList<SingleRun>
+        }
+    }
+
+    private fun extractRunData(bundle: Bundle): ArrayList<SingleRun> {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            bundle.getSerializable("runData",ArrayList<SingleRun>()::class.java)!!
+        } else {
+            @Suppress("DEPRECATION")
+            bundle.getSerializable("runData") as ArrayList<SingleRun>
+        }
     }
 
 
@@ -166,6 +224,8 @@ class RunActivity : AppCompatActivity(){
     private fun startCountdown(durationMillis: Long) {
         cdTimer = object : CountDownTimer(durationMillis, 10) {
             override fun onTick(p0: Long) {
+                remainingBreakMillis = p0
+
                 // convert time to min sec millisec
                 val millisec = (p0 / 10) % 100
                 val second = ((p0 % 60000) / 100) / 10
@@ -182,6 +242,7 @@ class RunActivity : AppCompatActivity(){
             override fun onFinish() {
                 this.cancel()
                 time = 0
+                remainingBreakMillis = 0
                 binding.tvMillisecond.text = ".00"
                 binding.tvSecond.text = ":00"
                 binding.tvMinute.text = "0"
