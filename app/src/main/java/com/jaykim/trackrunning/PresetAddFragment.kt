@@ -81,7 +81,6 @@ class PresetAddFragment : Fragment() {
             } else if (allPresets.isNotEmpty() && curPos < allPresets.size) {
                 presetEntity = allPresets[curPos]
                 runData = presetEntity.SingleWorkout
-                binding.presetAddEnterTitle.setText(presetEntity.title)
                 curTitle = presetEntity.title
                 setHasOptionsMenu(true)
             } else {
@@ -98,6 +97,13 @@ class PresetAddFragment : Fragment() {
 
     private fun initView(){
         activity?.runOnUiThread {
+
+            // reflect an existing preset's title in the title field (must run on the UI
+            // thread; EditText.setText() from a background thread crashes with
+            // CalledFromWrongThreadException)
+            if (curPos != -1) {
+                binding.presetAddEnterTitle.setText(presetEntity.title)
+            }
 
             adapter = PresetAddRvAdapter(runData)
             binding.presetAddRv.adapter = adapter
