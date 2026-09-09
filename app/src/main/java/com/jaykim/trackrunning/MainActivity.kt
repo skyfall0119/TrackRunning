@@ -93,6 +93,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 replaceFragment(ActivitiesFragment())
                 supportActionBar!!.setTitle(R.string.menu_activities)
             }
+            R.id.nav_timer->{
+                replaceFragment(TimerFragment())
+                supportActionBar!!.setTitle(R.string.menu_timer)
+            }
             R.id.nav_setting->{
                 replaceFragment(SettingFragment())
                 supportActionBar!!.setTitle(R.string.menu_setting)
