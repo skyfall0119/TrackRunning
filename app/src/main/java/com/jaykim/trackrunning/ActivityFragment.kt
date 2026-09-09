@@ -79,8 +79,9 @@ class ActivityFragment : Fragment() {
     private fun calcData() {
         val sortData = mutableMapOf<String,ArrayList<Int>>()
 
-        //sort by distance
+        //sort by distance, excluding rest entries (0 distance/time would skew the stats)
         for (singleRun in currentRun.singleWorkout) {
+            if (singleRun.isRest) continue
             if (sortData.containsKey(singleRun.distance)) {
                 sortData[singleRun.distance]?.add(singleRun.msTime)
             }else{
