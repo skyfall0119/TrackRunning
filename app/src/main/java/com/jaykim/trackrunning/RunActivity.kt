@@ -150,23 +150,21 @@ class RunActivity : AppCompatActivity(){
     //break countdown timer. update timer textview
     //when timer ends, check the break - isDone. update the view.
     private fun breakTimer(s : String) {
-        time = when (s) {
-            "30s" -> 30000
-            "1m" -> 60000
-            "1m 30s" -> 90000
-            "2m" -> 120000
-            "3m" -> 180000
-            "4m" -> 240000
-            "5m" -> 300000
-            else -> return
-        }
+        // reuse Helper's single source of truth for the break-time labels instead of
+        // duplicating the same string->ms mapping here; reject unrecognized labels
+        // instead of starting a bogus countdown.
+        if (s !in Helper.qsRest) return
+        time = Helper.breakToInt(s)
 
         duringBreak = true
         isRunning = false
         binding.tvTitle.text = "${getString(R.string.run_btn_break)}"
 
+        startCountdown(time.toLong())
+    }
 
-        cdTimer = object : CountDownTimer(time.toLong(), 10) {
+    private fun startCountdown(durationMillis: Long) {
+        cdTimer = object : CountDownTimer(durationMillis, 10) {
             override fun onTick(p0: Long) {
                 // convert time to min sec millisec
                 val millisec = (p0 / 10) % 100
