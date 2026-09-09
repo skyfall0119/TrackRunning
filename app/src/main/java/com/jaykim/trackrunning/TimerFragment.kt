@@ -161,6 +161,7 @@ class TimerFragment : Fragment() {
 
     private fun updateEmptyState() {
         binding.timerNoLaps.visibility = if (laps.isEmpty()) View.VISIBLE else View.GONE
+        binding.timerLapHeader.visibility = if (laps.isEmpty()) View.GONE else View.VISIBLE
     }
 
     override fun onDestroyView() {
