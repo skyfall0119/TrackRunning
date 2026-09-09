@@ -23,10 +23,12 @@ abstract class AppDatabase : RoomDatabase(){
 
         fun getInstance(context: Context) : AppDatabase? {
             if(appDatabase == null){
+                // No fallbackToDestructiveMigration(): user data (presets, run history) must
+                // survive schema changes. Any future version bump requires an explicit
+                // Migration added here, otherwise Room throws instead of silently wiping data.
                 appDatabase = Room.databaseBuilder(context,
                     AppDatabase::class.java,
                     databaseName)
-                    .fallbackToDestructiveMigration()
                     .build()
             }
 
