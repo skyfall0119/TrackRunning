@@ -51,6 +51,10 @@ class PresetFragment : Fragment() {
 
     private fun initView() {
         activity?.runOnUiThread {
+            // the fragment's view may have been destroyed while this background
+            // thread was still loading (e.g. user navigated away)
+            if (_binding == null) return@runOnUiThread
+
             adapter = PresetRvAdapter(presetList)
             binding.presetRv.adapter = adapter
             binding.presetRv.layoutManager = LinearLayoutManager(context)

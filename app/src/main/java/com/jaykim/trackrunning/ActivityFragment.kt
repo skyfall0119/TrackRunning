@@ -67,8 +67,12 @@ class ActivityFragment : Fragment() {
             } else {
                 // run no longer exists (e.g. deleted from another screen)
                 activity?.runOnUiThread {
-                    Toast.makeText(requireContext(), getString(R.string.activity_not_found), Toast.LENGTH_SHORT).show()
-                    backToActivities()
+                    // the fragment's view may have been destroyed while this background
+                    // thread was still loading (e.g. user navigated away)
+                    if (_binding != null) {
+                        Toast.makeText(requireContext(), getString(R.string.activity_not_found), Toast.LENGTH_SHORT).show()
+                        backToActivities()
+                    }
                 }
             }
 
@@ -107,6 +111,10 @@ class ActivityFragment : Fragment() {
     private fun initView() {
         //recyclerView. update the UI
         activity?.runOnUiThread {
+            // the fragment's view may have been destroyed while this background
+            // thread was still loading (e.g. user navigated away)
+            if (_binding == null) return@runOnUiThread
+
             adapter = FinishedActivityRvAdapter(currentRun.singleWorkout)
             binding.apply{
                 activityRv.adapter = adapter

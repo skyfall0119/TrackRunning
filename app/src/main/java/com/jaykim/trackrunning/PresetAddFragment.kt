@@ -94,8 +94,12 @@ class PresetAddFragment : Fragment() {
                 } else {
                     // preset no longer exists (e.g. deleted from another screen)
                     activity?.runOnUiThread {
-                        Toast.makeText(requireContext(), getString(R.string.preset_not_found), Toast.LENGTH_SHORT).show()
-                        backToPreset()
+                        // the fragment's view may have been destroyed while this
+                        // background thread was still loading (e.g. user navigated away)
+                        if (_binding != null) {
+                            Toast.makeText(requireContext(), getString(R.string.preset_not_found), Toast.LENGTH_SHORT).show()
+                            backToPreset()
+                        }
                     }
                     return@thread
                 }
@@ -107,6 +111,9 @@ class PresetAddFragment : Fragment() {
 
     private fun initView(){
         activity?.runOnUiThread {
+            // the fragment's view may have been destroyed while this background
+            // thread was still loading (e.g. user navigated away)
+            if (_binding == null) return@runOnUiThread
 
             // reflect an existing preset's title in the title field (must run on the UI
             // thread; EditText.setText() from a background thread crashes with

@@ -54,6 +54,10 @@ class ActivitiesFragment : Fragment() {
     private fun initRecyclerView() {
 
         activity?.runOnUiThread {
+            // the fragment's view may have been destroyed while this background
+            // thread was still loading (e.g. user navigated away)
+            if (_binding == null) return@runOnUiThread
+
             adapter = ActivitiesRvAdapter(runsList)
             binding.activitiesRv.adapter = adapter
 
