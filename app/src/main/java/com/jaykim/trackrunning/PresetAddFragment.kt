@@ -49,8 +49,9 @@ class PresetAddFragment : Fragment() {
         _binding = FragmentPresetAddBinding.inflate(inflater, container, false)
 
 
-
-
+        // data-dependent buttons stay disabled until initDb() finishes loading on its
+        // background thread, so they can't be used before adapter/runData/presetDao exist
+        setButtonsEnabled(false)
         initDb()
         initBtn()
 
@@ -61,6 +62,11 @@ class PresetAddFragment : Fragment() {
     }
 
 
+    private fun setButtonsEnabled(enabled: Boolean) {
+        binding.presetAddBtnDist.isEnabled = enabled
+        binding.presetAddBtnRest.isEnabled = enabled
+        binding.presetAddDone.isEnabled = enabled
+    }
 
 
     private fun initDb() {
@@ -159,6 +165,9 @@ class PresetAddFragment : Fragment() {
 
 
             (requireActivity() as AppCompatActivity).supportActionBar!!.title = curTitle
+
+            // data is loaded, buttons can now be used safely
+            setButtonsEnabled(true)
         }
 
     }
