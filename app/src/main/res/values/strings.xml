@@ -67,6 +67,8 @@
 
     <string name="preset_not_found">Error: No preset found.</string>
     <string name="activity_not_found">Error: No activity found.</string>
+    <string name="finished_save_failed">Failed to save your workout. Please try again.</string>
+    <string name="finished_saving_wait">Saving your workout, please wait…</string>
 
 
 
