@@ -51,17 +51,26 @@ class ActivityFragment : Fragment() {
 
     private fun initDb() {
         Thread{
-            //get position.
+            //get the run's DB id (not its position in a list, which can shift/reorder)
             val args = this.arguments
-            val curPos = args?.getInt("position")!!
+            val runId = args?.getInt("id") ?: -1
 
             //retrieve data
             db = AppDatabase.getInstance(requireContext() )!!
             runsDao = db.getRunsDao()
-            currentRun = runsDao.getAllRuns()[curPos]
+            val run = runsDao.getRunById(runId)
 
-            calcData()
-            initView()
+            if (run != null) {
+                currentRun = run
+                calcData()
+                initView()
+            } else {
+                // run no longer exists (e.g. deleted from another screen)
+                activity?.runOnUiThread {
+                    Toast.makeText(requireContext(), getString(R.string.activity_not_found), Toast.LENGTH_SHORT).show()
+                    backToActivities()
+                }
+            }
 
         }.start()
     }

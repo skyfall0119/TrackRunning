@@ -10,8 +10,12 @@ import androidx.room.Update
 @Dao
 interface PresetDao {
     //get all
-    @Query("SELECT * FROM PresetEntity")
+    @Query("SELECT * FROM PresetEntity ORDER BY id ASC")
     fun getAllPreset() : List<PresetEntity>
+
+    // get single preset by id
+    @Query("SELECT * FROM PresetEntity WHERE id = :id")
+    fun getPresetById(id : Int) : PresetEntity?
 
     // insert run
     @Insert

@@ -69,7 +69,10 @@ class PresetFragment : Fragment() {
 
                 override fun onItemClick(view: View, position: Int) {
                     val bundle = Bundle()
-                    bundle.putInt("position",position)
+                    // pass the DB id, not the list position: PresetAddFragment re-queries
+                    // the DB independently, and a position can point at a different row
+                    // than the one that was actually clicked
+                    bundle.putInt("id", presetList[position].id!!)
                     val singleFrag = PresetAddFragment()
                     singleFrag.arguments = bundle
                     val transaction = requireActivity().supportFragmentManager.beginTransaction()
@@ -86,7 +89,7 @@ class PresetFragment : Fragment() {
     private fun initBtn() {
         binding.presetFabAdd.setOnClickListener {
             var bundle = Bundle()
-            bundle.putInt("position",-1)
+            bundle.putInt("id",-1)
             val singleFrag = PresetAddFragment()
             singleFrag.arguments = bundle
             val transaction = requireActivity().supportFragmentManager.beginTransaction()

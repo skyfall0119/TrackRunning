@@ -76,24 +76,28 @@ class PresetAddFragment : Fragment() {
             presetDao = db.getPresetDao()
 
             val args = this.arguments
-            curPos = args?.getInt("position")!!
-
-            val allPresets = presetDao.getAllPreset()
+            // this holds the preset's DB id now (still named curPos for minimal diff),
+            // not a position into a re-queried list
+            curPos = args?.getInt("id") ?: -1
 
             // if adding new, initialize empty runData
             if (curPos == -1) {
                 runData = ArrayList()
                 curTitle = getString(R.string.preset_add_navTitle)
-            } else if (allPresets.isNotEmpty() && curPos < allPresets.size) {
-                presetEntity = allPresets[curPos]
-                runData = presetEntity.SingleWorkout
-                curTitle = presetEntity.title
-                setHasOptionsMenu(true)
             } else {
-                // Handle the case where curPos is out of bounds or the list is empty
-                activity?.runOnUiThread {
-                    Toast.makeText(requireContext(), "Error: No preset found.", Toast.LENGTH_SHORT).show()
-                    backToPreset()
+                val entity = presetDao.getPresetById(curPos)
+                if (entity != null) {
+                    presetEntity = entity
+                    runData = presetEntity.SingleWorkout
+                    curTitle = presetEntity.title
+                    setHasOptionsMenu(true)
+                } else {
+                    // preset no longer exists (e.g. deleted from another screen)
+                    activity?.runOnUiThread {
+                        Toast.makeText(requireContext(), getString(R.string.preset_not_found), Toast.LENGTH_SHORT).show()
+                        backToPreset()
+                    }
+                    return@thread
                 }
             }
 
