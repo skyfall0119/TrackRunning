@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaykim.trackrunning.databinding.FragmentTimerBinding
 import java.util.Timer
@@ -35,7 +36,7 @@ class TimerFragment : Fragment() {
 
         initRecycler()
         initBtn()
-        updateClock()
+        updateDisplay()
         updateEmptyState()
         updateButtonsForState()
 
@@ -68,7 +69,7 @@ class TimerFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
 
-        updateClock()
+        updateDisplay()
         updateEmptyState()
         updateButtonsForState()
 
@@ -106,7 +107,7 @@ class TimerFragment : Fragment() {
 
             activity?.runOnUiThread {
                 if (_binding == null) return@runOnUiThread
-                if (isRunning) updateClock()
+                if (isRunning) updateDisplay()
             }
         }
     }
@@ -128,26 +129,39 @@ class TimerFragment : Fragment() {
         adapter.notifyItemInserted(0)
         binding.timerRvLaps.scrollToPosition(0)
         updateEmptyState()
+        // the current-lap clock is derived from laps.firstOrNull(), so refresh it
+        // immediately instead of waiting for the next tick to show it reset to 0
+        updateDisplay()
     }
 
     private fun resetTimer() {
         elapsedTicks = 0
         laps.clear()
         adapter.notifyDataSetChanged()
-        updateClock()
+        updateDisplay()
         updateEmptyState()
         updateButtonsForState()
     }
 
-    private fun updateClock() {
+    private fun updateDisplay() {
         if (_binding == null) return
-        val millisec = elapsedTicks % 100
-        val second = (elapsedTicks % 6000) / 100
-        val minute = elapsedTicks / 6000
 
-        binding.tvTimerMillisecond.text = "." + if (millisec < 10) "0$millisec" else "$millisec"
-        binding.tvTimerSecond.text = ":" + if (second < 10) "0$second" else "$second"
-        binding.tvTimerMinute.text = "$minute"
+        // total time: keeps increasing regardless of laps
+        renderTime(elapsedTicks, binding.tvTimerMinute, binding.tvTimerSecond, binding.tvTimerMillisecond)
+
+        // current lap time: elapsed since the last recorded lap (or since start, if none yet)
+        val lapStartTicks = laps.firstOrNull()?.totalTime ?: 0
+        renderTime(elapsedTicks - lapStartTicks, binding.tvTimerLapMinute, binding.tvTimerLapSecond, binding.tvTimerLapMillisecond)
+    }
+
+    private fun renderTime(ticks: Int, minuteView: TextView, secondView: TextView, millisecondView: TextView) {
+        val millisec = ticks % 100
+        val second = (ticks % 6000) / 100
+        val minute = ticks / 6000
+
+        millisecondView.text = "." + if (millisec < 10) "0$millisec" else "$millisec"
+        secondView.text = ":" + if (second < 10) "0$second" else "$second"
+        minuteView.text = "$minute"
     }
 
     private fun updateButtonsForState() {

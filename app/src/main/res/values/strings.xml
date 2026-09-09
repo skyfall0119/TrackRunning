@@ -80,6 +80,7 @@
     <string name="timer_header_lap">Lap</string>
     <string name="timer_header_lap_time">Lap Time</string>
     <string name="timer_header_total_time">Total</string>
+    <string name="timer_current_lap_label">Current Lap</string>
 
 
 

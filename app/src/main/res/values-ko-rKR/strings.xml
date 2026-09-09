@@ -80,6 +80,7 @@
     <string name="timer_header_lap">랩</string>
     <string name="timer_header_lap_time">랩 타임</string>
     <string name="timer_header_total_time">전체 시간</string>
+    <string name="timer_current_lap_label">현재 랩</string>
 
 
 
