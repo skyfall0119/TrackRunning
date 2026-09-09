@@ -27,7 +27,8 @@ class FinishedActivityRvAdapter (private val list : ArrayList<SingleRun>) : Recy
         init{
             itemView.setOnClickListener {
                 val pos = adapterPosition
-                if (pos != RecyclerView.NO_POSITION && mOnItemClickListener != null){
+                // rest entries carry no distance/time stats, so they aren't selectable
+                if (pos != RecyclerView.NO_POSITION && !list[pos].isRest && mOnItemClickListener != null){
                     mOnItemClickListener.onItemClick(itemView,pos)
                 }
             }

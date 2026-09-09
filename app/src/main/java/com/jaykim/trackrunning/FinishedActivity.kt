@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jaykim.trackrunning.databinding.ActivityFinishedBinding
 import com.jaykim.trackrunning.db.AppDatabase
@@ -36,6 +37,10 @@ class FinishedActivity : AppCompatActivity() {
     private lateinit var totalTime : String
     private lateinit var totalDist : String
     private lateinit var curDay : String
+    // true while the DB insert is still in flight; blocks leaving the screen so the
+    // record can't be silently dropped by an early back-press
+    private var isSaving = true
+    private var saveFailed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,11 +61,20 @@ class FinishedActivity : AppCompatActivity() {
 
     private fun initBtn() {
         binding.btnFinishedBacktomenu.setOnClickListener{
-            finish()
+            finishIfSaved()
         }
     }
 
     override fun onBackPressed() {
+        finishIfSaved()
+    }
+
+    // leaving before the save finishes would silently drop the workout record
+    private fun finishIfSaved() {
+        if (isSaving) {
+            Toast.makeText(this, getString(R.string.finished_saving_wait), Toast.LENGTH_SHORT).show()
+            return
+        }
         finish()
     }
 
@@ -120,8 +134,9 @@ class FinishedActivity : AppCompatActivity() {
     private fun calcData() {
         val sortData = mutableMapOf<String,ArrayList<Int>>()
 
-        //sort by distance
+        //sort by distance, excluding rest entries (0 distance/time would skew the stats)
         for (singleRun in runData) {
+            if (singleRun.isRest) continue
             if (sortData.containsKey(singleRun.distance)) {
                 sortData[singleRun.distance]?.add(singleRun.msTime)
             }else{
@@ -147,13 +162,23 @@ class FinishedActivity : AppCompatActivity() {
     //save finished run data to the database with current time
     private fun initDb() {
         Thread{
-            db = AppDatabase.getInstance(this)!!
-            runsDao = db.getRunsDao()
+            try {
+                db = AppDatabase.getInstance(this)!!
+                runsDao = db.getRunsDao()
 
-            runsDao.insertRuns(RunsEntity(
-                null,curDate, curTime, "$curDay ${getString(R.string.finished_title_run)}",
-                totalDist, totalTime, runData))
-
+                runsDao.insertRuns(RunsEntity(
+                    null,curDate, curTime, "$curDay ${getString(R.string.finished_title_run)}",
+                    totalDist, totalTime, runData))
+            } catch (e: Exception) {
+                saveFailed = true
+            } finally {
+                isSaving = false
+                runOnUiThread {
+                    if (saveFailed) {
+                        Toast.makeText(this, getString(R.string.finished_save_failed), Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
         }.start()
     }
 

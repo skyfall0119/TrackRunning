@@ -60,6 +60,10 @@ class RunningFragment : Fragment() {
 
             //update preset UI
             activity?.runOnUiThread {
+                // the fragment's view may have been destroyed while this background
+                // thread was still loading (e.g. user navigated away)
+                if (_binding == null) return@runOnUiThread
+
                 adapter = RunningRvAdapter(presetList)
                 binding.runningRv.adapter = adapter
                 binding.runningRv.layoutManager = LinearLayoutManager(context)

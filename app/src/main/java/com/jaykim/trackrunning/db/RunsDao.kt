@@ -9,8 +9,12 @@ import androidx.room.Query
 interface RunsDao {
 
     //get all
-    @Query("SELECT * FROM RunsEntity")
+    @Query("SELECT * FROM RunsEntity ORDER BY id ASC")
     fun getAllRuns() : List<RunsEntity>
+
+    // get single run by id
+    @Query("SELECT * FROM RunsEntity WHERE id = :id")
+    fun getRunById(id : Int) : RunsEntity?
 
     // insert run
     @Insert

@@ -54,6 +54,10 @@ class ActivitiesFragment : Fragment() {
     private fun initRecyclerView() {
 
         activity?.runOnUiThread {
+            // the fragment's view may have been destroyed while this background
+            // thread was still loading (e.g. user navigated away)
+            if (_binding == null) return@runOnUiThread
+
             adapter = ActivitiesRvAdapter(runsList)
             binding.activitiesRv.adapter = adapter
 
@@ -70,7 +74,10 @@ class ActivitiesFragment : Fragment() {
             adapter.setOnItemClickListener(object : ActivitiesRvAdapter.onItemClickListener{
                 override fun onItemClick(view: View, position: Int) {
                     val bundle = Bundle()
-                    bundle.putInt("position",position)
+                    // pass the DB id, not the list position: the detail screen re-queries
+                    // the DB independently, and a position can point at a different row
+                    // than the one that was actually clicked (see ActivityFragment.initDb())
+                    bundle.putInt("id", runsList[position].id!!)
                     val singleFrag = ActivityFragment()
                     singleFrag.arguments = bundle
                     val transaction = requireActivity().supportFragmentManager.beginTransaction()
