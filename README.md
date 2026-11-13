@@ -8,7 +8,7 @@ TrackRunning is a simple and effective interval training app for runners.
 
 ## 변경 내역 (Changelog)
 
-### v1.13.1 (versionCode 8) — 2026-09-27
+### v1.13.1 (versionCode 9) — 2026-09-27
 
 **버그 수정**
 - 프리셋 편집 화면에서 백그라운드 스레드가 UI를 직접 갱신하던 문제 수정 (`CalledFromWrongThreadException`으로 인한 강제 종료 가능성 제거)

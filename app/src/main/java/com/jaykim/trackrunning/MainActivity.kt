@@ -10,6 +10,7 @@ import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         Locale.getDefault().displayLanguage
 
         initNav(savedInstanceState)
+        initBackHandler()
         // initAd() // Temporarily disabled
 
 
@@ -131,26 +133,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.dispatchTouchEvent(ev)
     }
 
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.closeDrawer(GravityCompat.START)
-        }
-        else {
-
-            if (supportFragmentManager.backStackEntryCount == 0){
-                if (isBackPressedOnce + 1500 > System.currentTimeMillis()){
-                    finish()
-                }
-                else{
-                    Toast.makeText(applicationContext, getString(R.string.main_exit), Toast.LENGTH_SHORT).show()
-                    isBackPressedOnce = System.currentTimeMillis()
+    // onBackPressed() is no longer called on Android 16+ when targeting API 36
+    private fun initBackHandler() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                when {
+                    drawerLayout.isDrawerOpen(GravityCompat.START) -> drawerLayout.closeDrawer(GravityCompat.START)
+                    supportFragmentManager.backStackEntryCount > 0 -> supportFragmentManager.popBackStack()
+                    else -> exitOnDoubleBack()
                 }
             }
-            else{
-//                onBackPressedDispatcher.onBackPressed()
-                super.onBackPressed()
+        })
+    }
 
-            }
+    private fun exitOnDoubleBack() {
+        if (isBackPressedOnce + 1500 > System.currentTimeMillis()) {
+            finish()
+            return
         }
+        Toast.makeText(applicationContext, getString(R.string.main_exit), Toast.LENGTH_SHORT).show()
+        isBackPressedOnce = System.currentTimeMillis()
     }
 }

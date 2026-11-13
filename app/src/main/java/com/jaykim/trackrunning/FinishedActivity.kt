@@ -3,6 +3,7 @@ package com.jaykim.trackrunning
 
 
 import android.os.Build
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -51,6 +52,7 @@ class FinishedActivity : AppCompatActivity() {
 
 
         initBtn()
+        initBackHandler()
         getData()
         initDb()
         calcData()
@@ -65,8 +67,13 @@ class FinishedActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        finishIfSaved()
+    // onBackPressed() is no longer called on Android 16+ when targeting API 36
+    private fun initBackHandler() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                finishIfSaved()
+            }
+        })
     }
 
     // leaving before the save finishes would silently drop the workout record
